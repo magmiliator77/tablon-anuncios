@@ -1,0 +1,62 @@
+# #####################################################################
+#  ▶ PASO 1 · EMPIEZA AQUÍ
+#  Al ejecutar  docker compose up -d  Docker lee este archivo y levanta
+#  3 contenedores: web (Apache+PHP), mysql y phpmyadmin.
+#
+#  Para parar:  docker compose down   (con -v borra también la BD)
+# #####################################################################
+services:
+
+  # ===================================================================
+  #  Servidor web: Apache + PHP. "build: ." usa mi Dockerfile.
+  # ===================================================================
+  web:
+    build: .
+    ports:
+      - "8080:80"                 # http://localhost:8080 -> puerto 80 del contenedor
+    volumes:
+      - ./:/var/www/html          # Monto el proyecto: los cambios se ven sin reconstruir
+
+    # Al arrancar el contenedor se ejecutan 3 cosas, en orden:
+    #  1º Si no existe config.php, lo crea copiando config.example.php.
+    #     (config.php NO se sube a Git porque lleva contraseñas, ver .gitignore;
+    #      así el proyecto arranca igual en otro ordenador recién descargado)
+    #  2º composer dump-autoload: genera vendor/autoload.php ("App\" = carpeta src/)
+    #  3º apache2-foreground: arranca Apache.
+    command: sh -c "[ -f config.php ] || cp config.example.php config.php; composer dump-autoload && apache2-foreground"
+    depends_on:
+      mysql:
+        condition: service_healthy   # La web espera a que MySQL esté listo
+
+  # ===================================================================
+  #  Base de datos MySQL
+  #  - Crea la base de datos "tablon_anuncios" con usuario root / root
+  #    (los mismos datos que hay en config.php)
+  #  - La PRIMERA vez que arranca ejecuta database.sql (tablas + datos de prueba)
+  # ===================================================================
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: tablon_anuncios
+    volumes:
+      # Lo que hay en /docker-entrypoint-initdb.d se ejecuta al crear la BD
+      - ./database.sql:/docker-entrypoint-initdb.d/database.sql
+      - mysql_data:/var/lib/mysql   # Los datos persisten aunque pares el contenedor
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-proot"]
+      interval: 5s
+      retries: 20
+
+  # phpMyAdmin: ver la BD desde http://localhost:8081  (root / root)
+  phpmyadmin:
+    image: phpmyadmin:5
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mysql
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:

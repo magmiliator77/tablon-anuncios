@@ -1,0 +1,5 @@
+# Si la URL pedida no es un archivo real (imagen, css...), mándala a index.php
+# QSA = conserva el ?id=3 de la URL    L = no mires más reglas
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [QSA,L]

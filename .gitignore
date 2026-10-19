@@ -1,0 +1,6 @@
+# config.php lleva las contraseñas de la BD: nunca se sube a Git.
+# En su lugar subo config.example.php (mismo formato, sin datos reales).
+config.php
+
+# vendor/ lo genera Composer, no hace falta subirlo
+vendor/

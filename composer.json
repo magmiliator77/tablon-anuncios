@@ -1,0 +1,9 @@
+{
+    "name": "daw/tablon-anuncios",
+    "description": "Práctica final 2.8: tablón de anuncios de la clase",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}
