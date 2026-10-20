@@ -7,9 +7,9 @@ namespace App\Controllers;
 use App\Core\Controller;
 use App\Models\User;
 
-// #####################################################################
-//  AUTENTICACIÓN: registro, login y logout
-// #####################################################################
+/* #####################################################################
+ *  AUTENTICACIÓN: registro, login y logout
+ * ##################################################################### */
 
 class AuthController extends Controller
 {
@@ -19,9 +19,9 @@ class AuthController extends Controller
         require __DIR__ . '/../Views/auth/register.php';
     }
 
-    // =================================================================
-    //  POST /register -> crea el usuario
-    // =================================================================
+    /* =================================================================
+     *  POST /register -> crea el usuario
+     * ================================================================= */
     public function register(): void
     {
         // 1 · Lo primero de todo: comprobar el token CSRF
@@ -39,6 +39,7 @@ class AuthController extends Controller
             $this->redirect('/register', 'Rellena todos los campos.', 'error');
         }
 
+        // filter_var() con FILTER_VALIDATE_EMAIL devuelve false si no tiene forma de email
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $this->redirect('/register', 'El email no es válido.', 'error');
         }
@@ -47,8 +48,8 @@ class AuthController extends Controller
             $this->redirect('/register', 'Ya existe un usuario con ese email.', 'error');
         }
 
-        // 4 · Guardar. La contraseña se guarda como HASH con password_hash(),
-        //     nunca en texto plano (ni con md5, que está obsoleto e inseguro)
+        /* 4 · Guardar. La contraseña se guarda como HASH con password_hash(),
+         *     nunca en texto plano (ni con md5, que está obsoleto e inseguro) */
         $userModel->insert([
             'username' => $username,
             'email'    => $email,
@@ -64,9 +65,9 @@ class AuthController extends Controller
         require __DIR__ . '/../Views/auth/login.php';
     }
 
-    // =================================================================
-    //  POST /login -> comprueba email y contraseña
-    // =================================================================
+    /* =================================================================
+     *  POST /login -> comprueba email y contraseña
+     * ================================================================= */
     public function login(): void
     {
         $this->checkCsrf();
@@ -82,24 +83,26 @@ class AuthController extends Controller
             $this->redirect('/login', 'Email o contraseña incorrectos.', 'error');
         }
 
-        // 2 · La sesión ya está arrancada (session_start() en public/index.php).
-        //     session_regenerate_id(true) le da al usuario un id de sesión nuevo
-        //     al loguearse (protección contra el robo de sesión).
+        /* 2 · La sesión ya está arrancada (session_start() en public/index.php).
+         *     session_regenerate_id(true) le da al usuario un id de sesión nuevo
+         *     al loguearse (protección contra el robo de sesión). */
         session_regenerate_id(true);
 
-        // 3 · Guardo quién es. Desde ahora, en cualquier página,
-        //     $_SESSION['user_id'] me dice qué usuario está logueado.
+        /* 3 · Guardo quién es. Desde ahora, en cualquier página,
+         *     $_SESSION['user_id'] me dice qué usuario está logueado. */
         $_SESSION['user_id'] = $userId;
         $_SESSION['email'] = $email;
 
         $this->redirect('/posts', 'Has iniciado sesión.');
     }
 
-    // =================================================================
-    //  GET /logout -> borra la sesión entera (usuario, token, mensajes...)
-    // =================================================================
+    /* =================================================================
+     *  GET /logout -> borra la sesión entera (usuario, token, mensajes...)
+     * ================================================================= */
     public function logout(): void
     {
+        /* Borra todo lo guardado en la sesión: a partir de aquí ya no hay
+         * $_SESSION['user_id'], así que la web me trata como visitante */
         session_destroy();
 
         $this->redirect('/posts');

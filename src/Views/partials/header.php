@@ -6,6 +6,11 @@
  *  - Mensajes de éxito/error que dejó redirect() en la sesión.
  *    Se borran con unset() para que salgan solo una vez.
  *  Cada vista pone $pageTitle antes de incluir este archivo.
+ *
+ *  Sintaxis de PHP en las vistas:
+ *  - <?= algo ?>  es lo mismo que <?php echo algo; ?>
+ *  - if (...): ... else: ... endif;  es un if normal, pero escrito así
+ *    se lee mejor cuando hay HTML en medio (igual con foreach/endforeach)
  * ##################################################################### */
 ?>
 <!DOCTYPE html>
@@ -15,6 +20,7 @@
     <title><?= htmlspecialchars($pageTitle ?? 'Tablón') ?></title>
 </head>
 <body>
+    <!-- Menú: cambia según haya o no un usuario en la sesión -->
     <nav>
         <a href="/posts">📋 Tablón de anuncios</a> |
 

@@ -1,5 +1,10 @@
 <?php
 /* Página de error. La usa Controller::error() con $code (404, 403...) y $message */
+
+// Solo para el editor: $code y $message son los parámetros de error()
+/** @var int $code */
+/** @var string $message */
+
 $pageTitle = "Error $code";
 require __DIR__ . '/partials/header.php';
 ?>

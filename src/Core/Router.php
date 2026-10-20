@@ -4,21 +4,22 @@ declare(strict_types=1);
 
 namespace App\Core;
 
-// #####################################################################
-//  ENRUTADOR (el mismo del 2.7)
-//  Según la URL y el verbo (GET o POST) decide qué método de qué
-//  controlador tiene que ejecutarse.
-// #####################################################################
+/* #####################################################################
+ *  ENRUTADOR (el mismo del 2.7)
+ *  Según la URL y el verbo (GET o POST) decide qué método de qué
+ *  controlador tiene que ejecutarse.
+ * ##################################################################### */
 
 class Router
 {
-    // Rutas registradas. Ejemplo:
-    // ['GET' => ['/posts' => [PostController::class, 'index']]]
+    /* Rutas registradas. Ejemplo:
+     * ['GET' => ['/posts' => [PostController::class, 'index']]] */
     private array $routes = [];
 
     // get() y post() solo apuntan la ruta en $routes. Aún no se ejecuta nada.
     public function get(string $path, array $action): void
     {
+        // Ej: $routes['GET']['/posts'] = [PostController::class, 'index']
         $this->routes['GET'][$path] = $action;
     }
 
@@ -43,8 +44,8 @@ class Router
         // 3 · Separo [NombreDelControlador, 'nombreDelMetodo']
         [$controllerClass, $methodName] = $action;
 
-        // 4 · Creo el controlador y llamo a su método.
-        //     Por ejemplo, para GET /posts esto hace: (new PostController())->index();
+        /* 4 · Creo el controlador y llamo a su método.
+         *     Por ejemplo, para GET /posts esto hace: (new PostController())->index(); */
         $controller = new $controllerClass();
         $controller->$methodName();
     }
