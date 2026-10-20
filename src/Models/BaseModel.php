@@ -40,7 +40,7 @@ abstract class BaseModel
     // Pregunta del enunciado: ¿lo meto en Database o aquí?
     // Lo dejo AQUÍ: Database no sabe nada de tablas ni de ids, solo
     // ejecuta SQL. "Borrar un registro por id" es algo de los modelos.
-    // Para lanzar el DELETE nos basta con el query() genérico de Database.
+    // Para lanzar el DELETE me basta con el query() genérico de Database.
     public function delete(int $id): void
     {
         $this->db->query("DELETE FROM {$this->table} WHERE id = :id", ['id' => $id]);

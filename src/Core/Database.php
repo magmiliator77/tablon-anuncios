@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Core;
 
 use PDO;
+use PDOException;
 use PDOStatement;
 
 // #####################################################################
@@ -23,20 +24,27 @@ class Database
     // =================================================================
     public function __construct()
     {
-        // 1 · require de un archivo que hace "return [...]" nos devuelve ese array
+        // 1 · require de un archivo que hace "return [...]" me devuelve ese array
         $config = require __DIR__ . '/../../config.php';
         $db = $config['db'];
 
         // 2 · DSN = "dirección" de la base de datos
         $dsn = "mysql:host={$db['host']};dbname={$db['dbname']};charset={$db['charset']}";
 
-        // 3 · Abro la conexión
-        $this->pdo = new PDO($dsn, $db['user'], $db['pass'], [
-            // Si una consulta falla, PDO lanza una excepción (en vez de devolver false sin avisar)
-            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-            // Las filas llegan como arrays asociativos: ['id' => 1, 'title' => '...']
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        ]);
+        // 3 · Abro la conexión. Si MySQL no está arrancado o los datos de
+        //     config.php están mal, PDO lanza una PDOException: la capturo
+        //     para enseñar un mensaje claro en vez de un "Fatal error" (como en el 2.7)
+        try {
+            $this->pdo = new PDO($dsn, $db['user'], $db['pass'], [
+                // Si una consulta falla, PDO lanza una excepción (en vez de devolver false sin avisar)
+                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+                // Las filas llegan como arrays asociativos: ['id' => 1, 'title' => '...']
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            ]);
+        } catch (PDOException $e) {
+            http_response_code(500);
+            die('Error de conexión a la base de datos: ' . $e->getMessage());
+        }
     }
 
     // =================================================================
