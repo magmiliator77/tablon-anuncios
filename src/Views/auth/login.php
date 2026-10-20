@@ -9,7 +9,7 @@ require __DIR__ . '/../partials/header.php';
 
 <form action="/login" method="post">
     <!-- El token CSRF también va en el login: lo pide el enunciado en TODOS los POST -->
-    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
 
     <label>Email: <input type="email" name="email" required></label><br>
 

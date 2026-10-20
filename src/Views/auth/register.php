@@ -9,7 +9,7 @@ require __DIR__ . '/../partials/header.php';
 
 <form action="/register" method="post">
     <!-- Token CSRF oculto: lo comprueba checkCsrf() al recibir el formulario -->
-    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
 
     <label>Nombre de usuario: <input type="text" name="username" required></label><br>
 

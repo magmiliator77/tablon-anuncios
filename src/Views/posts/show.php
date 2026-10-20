@@ -24,20 +24,20 @@ $isOwner = isset($_SESSION['user_id']) && (int) $_SESSION['user_id'] === (int) $
 <p>
     <strong>Categoría:</strong> <?= htmlspecialchars($post['category']) ?> ·
     <strong>Autor:</strong> <?= htmlspecialchars($post['username']) ?> ·
-    <?= $post['created_at'] ?>
+    <?= htmlspecialchars($post['created_at']) ?>
 </p>
 
 <!-- nl2br() convierte los saltos de línea en <br>. Va DESPUÉS de htmlspecialchars -->
 <p><?= nl2br(htmlspecialchars($post['body'])) ?></p>
 
 <?php if ($isOwner): ?>
-    <a href="/posts/edit?id=<?= $post['id'] ?>">✏️ Editar</a>
+    <a href="/posts/edit?id=<?= htmlspecialchars((string) $post['id']) ?>">✏️ Editar</a>
 
     <!-- Borrar va por POST (nunca con un enlace GET) y con token CSRF -->
     <form action="/posts/delete" method="post" style="display:inline"
           onsubmit="return confirm('¿Seguro que quieres borrar este anuncio?');">
-        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
-        <input type="hidden" name="id" value="<?= $post['id'] ?>">
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
+        <input type="hidden" name="id" value="<?= htmlspecialchars((string) $post['id']) ?>">
 
         <button type="submit">🗑️ Borrar</button>
     </form>
@@ -54,7 +54,7 @@ $isOwner = isset($_SESSION['user_id']) && (int) $_SESSION['user_id'] === (int) $
     <?php foreach ($comments as $comment): ?>
         <p>
             <strong><?= htmlspecialchars($comment['username']) ?></strong>
-            (<?= $comment['created_at'] ?>):<br>
+            (<?= htmlspecialchars($comment['created_at']) ?>):<br>
             <?= nl2br(htmlspecialchars($comment['body'])) ?>
         </p>
     <?php endforeach; ?>
@@ -65,8 +65,8 @@ $isOwner = isset($_SESSION['user_id']) && (int) $_SESSION['user_id'] === (int) $
          post_id va oculto (en qué anuncio comentas). El user_id NO va aquí:
          el controlador lo saca de la sesión. -->
     <form action="/comments" method="post">
-        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
-        <input type="hidden" name="post_id" value="<?= $post['id'] ?>">
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
+        <input type="hidden" name="post_id" value="<?= htmlspecialchars((string) $post['id']) ?>">
 
         <textarea name="body" rows="3" cols="50" required></textarea><br>
 

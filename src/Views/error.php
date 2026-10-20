@@ -9,7 +9,7 @@ $pageTitle = "Error $code";
 require __DIR__ . '/partials/header.php';
 ?>
 
-<h1>Error <?= $code ?></h1>
+<h1>Error <?= htmlspecialchars((string) $code) ?></h1>
 <p><?= htmlspecialchars($message) ?></p>
 <p><a href="/posts">← Volver al tablón</a></p>
 

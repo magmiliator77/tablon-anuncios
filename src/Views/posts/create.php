@@ -10,7 +10,7 @@ require __DIR__ . '/../partials/header.php';
 <!-- required hace que el navegador no deje enviar campos vacíos, pero NO
      es seguridad (se quita con F12): por eso el controlador vuelve a validar -->
 <form action="/posts" method="post">
-    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
 
     <label>Título: <input type="text" name="title" required></label><br>
 

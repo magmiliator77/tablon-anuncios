@@ -42,10 +42,10 @@ require __DIR__ . '/../partials/header.php';
         <!-- Una fila de la tabla por cada anuncio. El título enlaza a su detalle -->
         <?php foreach ($posts as $post): ?>
             <tr>
-                <td><a href="/posts/show?id=<?= $post['id'] ?>"><?= htmlspecialchars($post['title']) ?></a></td>
+                <td><a href="/posts/show?id=<?= htmlspecialchars((string) $post['id']) ?>"><?= htmlspecialchars($post['title']) ?></a></td>
                 <td><?= htmlspecialchars($post['category']) ?></td>
                 <td><?= htmlspecialchars($post['username']) ?></td>
-                <td><?= $post['created_at'] ?></td>
+                <td><?= htmlspecialchars($post['created_at']) ?></td>
             </tr>
         <?php endforeach; ?>
     </table>
