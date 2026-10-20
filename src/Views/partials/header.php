@@ -27,6 +27,7 @@
             <a href="/register">Registrarse</a>
         <?php endif; ?>
     </nav>
+
     <hr>
 
     <?php if (!empty($_SESSION['success'])): ?>

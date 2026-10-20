@@ -54,6 +54,7 @@ abstract class Controller
         if ($message !== '') {
             $_SESSION[$type] = $message;
         }
+
         header("Location: $url");
         exit;
     }

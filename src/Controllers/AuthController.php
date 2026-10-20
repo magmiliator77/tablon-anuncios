@@ -38,9 +38,11 @@ class AuthController extends Controller
         if ($username === '' || $email === '' || $password === '') {
             $this->redirect('/register', 'Rellena todos los campos.', 'error');
         }
+
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $this->redirect('/register', 'El email no es válido.', 'error');
         }
+
         if ($userModel->emailExists($email)) {
             $this->redirect('/register', 'Ya existe un usuario con ese email.', 'error');
         }
@@ -99,6 +101,7 @@ class AuthController extends Controller
     public function logout(): void
     {
         session_destroy();
+
         $this->redirect('/posts');
     }
 }
