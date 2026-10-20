@@ -5,11 +5,29 @@
 --      docker compose down -v
 --      docker compose up -d
 --
+--  También se puede importar a mano (phpMyAdmin → Importar, o desde la
+--  terminal de MySQL): crea la base de datos si no existe y borra las
+--  tablas antes de crearlas, así que se puede importar varias veces.
+--
 --  Relaciones:
 --    users 1 ──< N posts       (un usuario escribe muchos anuncios)
 --    users 1 ──< N comments    (un usuario escribe muchos comentarios)
 --    posts 1 ──< N comments    (un anuncio tiene muchos comentarios)
 -- #####################################################################
+
+-- Para que las tildes y la ñ se guarden bien
+SET NAMES utf8mb4;
+
+-- Creo la base de datos (si ya existe, no hace nada) y trabajo dentro de ella
+CREATE DATABASE IF NOT EXISTS tablon_anuncios CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE tablon_anuncios;
+
+-- Si las tablas ya existen, las borro para empezar de cero.
+-- Primero las "hijas" (comments, posts) y luego la "madre" (users):
+-- al revés, las claves foráneas no dejarían borrar users.
+DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS posts;
+DROP TABLE IF EXISTS users;
 
 -- ---------------------------------------------------------------------
 --  Usuarios
