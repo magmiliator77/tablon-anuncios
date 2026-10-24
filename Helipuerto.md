@@ -113,7 +113,7 @@ Si quiero **añadir una página nueva**, toco siempre tres sitios, en este orden
 43. **Que el ojo siga al ratón**: [public/js/ojo-elefante.js](public/js/ojo-elefante.js)
 44. **La pantalla de carga con el elefante corriendo**:
     - El HTML está en [footer.php](src/Views/partials/footer.php), así sale en todas las páginas.
-    - Cuándo sale: [public/js/carga.js](public/js/carga.js) (si una página tarda más de 400 ms, y siempre 2 segundos al publicar un anuncio).
+    - Cuándo sale: [public/js/carga.js](public/js/carga.js) (si una página tarda más de 400 ms, y siempre 3,5 segundos al publicar un anuncio).
 45. **¿Por qué el CSS, el JS y las imágenes van en `public/`?** Porque es la única carpeta que el navegador puede pedir. El [.htaccess](public/.htaccess) deja pasar los archivos que existen y todo lo demás lo manda a `index.php`.
 
 ## Si me sale un error

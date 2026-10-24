@@ -73,6 +73,6 @@ require __DIR__ . '/../partials/header.php';
 <?php endif; ?>
 
 <!-- El JavaScript que hace que el ojo siga al ratón -->
-<script src="/js/ojo-elefante.js"></script>
+<script src="/js/ojo-elefante.js?v=2"></script>
 
 <?php require __DIR__ . '/../partials/footer.php'; ?>

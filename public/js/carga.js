@@ -6,7 +6,7 @@
  *  Cuando llega la página nueva, esta desaparece sola con todo lo demás.
  *
  *  Caso especial: al PUBLICAR un anuncio nuevo la pantalla sale siempre,
- *  durante 2 segundos, y luego se envía el formulario.
+ *  durante 3,5 segundos, y luego se envía el formulario.
  * ##################################################################### */
 
 var pantalla = document.getElementById('pantalla-carga');
@@ -41,14 +41,14 @@ function alEnviar(evento) {
     var formulario = evento.target;
 
     /* Publicar anuncio nuevo (el formulario de create.php): paro el envío,
-     * enseño ya la pantalla y envío el formulario 2 segundos después.
+     * enseño ya la pantalla y envío el formulario 3,5 segundos (3500 ms) después.
      * formulario.submit() NO vuelve a lanzar este evento, así que no se repite. */
     if (formulario.getAttribute('action') === '/posts' && formulario.getAttribute('method') === 'post') {
         evento.preventDefault();
         mostrarPantalla();
         setTimeout(function () {
             formulario.submit();
-        }, 2000);
+        }, 3500);
         return;
     }
 
