@@ -17,31 +17,35 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= htmlspecialchars($pageTitle ?? 'Tablón') ?></title>
+    <!-- Los estilos de toda la web (public/css/style.css) -->
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <!-- Menú: cambia según haya o no un usuario en la sesión -->
     <nav>
-        <a href="/posts">📋 Tablón de anuncios</a> |
+        <a href="/posts" class="marca">📋 Tablón de anuncios</a>
 
         <?php if (isset($_SESSION['user_id'])): ?>
-            <a href="/posts/create">➕ Nuevo anuncio</a> |
-            👤 <?= htmlspecialchars($_SESSION['email']) ?>
+            <a href="/posts/create">➕ Nuevo anuncio</a>
+            <span class="usuario">👤 <?= htmlspecialchars($_SESSION['email']) ?></span>
             <a href="/logout">Cerrar sesión</a>
         <?php else: ?>
-            <a href="/login">Iniciar sesión</a> |
+            <a href="/login">Iniciar sesión</a>
             <a href="/register">Registrarse</a>
         <?php endif; ?>
     </nav>
 
-    <hr>
+    <!-- Todo el contenido de la página va dentro de <main> (lo cierra footer.php) -->
+    <main>
 
     <?php if (!empty($_SESSION['success'])): ?>
-        <p style="color: green;"><?= htmlspecialchars($_SESSION['success']) ?></p>
+        <p class="aviso aviso-exito"><?= htmlspecialchars($_SESSION['success']) ?></p>
         <?php unset($_SESSION['success']); ?>
     <?php endif; ?>
 
     <?php if (!empty($_SESSION['error'])): ?>
-        <p style="color: red;"><?= htmlspecialchars($_SESSION['error']) ?></p>
+        <p class="aviso aviso-error"><?= htmlspecialchars($_SESSION['error']) ?></p>
         <?php unset($_SESSION['error']); ?>
     <?php endif; ?>

@@ -31,7 +31,7 @@ require __DIR__ . '/../partials/header.php';
 <?php if ($posts === null): ?>
     <p>No hay anuncios.</p>
 <?php else: ?>
-    <table border="1" cellpadding="6">
+    <table>
         <tr>
             <th>Título</th>
             <th>Categoría</th>

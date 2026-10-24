@@ -1,0 +1,211 @@
+/* #####################################################################
+ *  ESTILOS DE TODA LA APLICACIÓN
+ *  Lo enlaza header.php, así que se aplica a todas las páginas.
+ *  Está en public/ porque es lo único que el navegador puede pedir
+ *  directamente (el .htaccess deja pasar los archivos que existen).
+ *  Casi todo va por etiqueta (form, table, button...), así las vistas
+ *  no necesitan clases y siguen siendo HTML sencillo.
+ * ##################################################################### */
+
+/* Colores en variables: si quiero cambiar el color principal, lo cambio solo aquí */
+:root {
+    --fondo: #f3f4f8;
+    --tarjeta: #ffffff;
+    --texto: #1f2937;
+    --suave: #6b7280;
+    --borde: #e5e7eb;
+    --principal: #4f46e5;
+    --principal-oscuro: #4338ca;
+    --peligro: #dc2626;
+    --exito: #16a34a;
+}
+
+* {
+    box-sizing: border-box;   /* El padding cuenta dentro del ancho */
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--fondo);
+    color: var(--texto);
+    line-height: 1.6;
+}
+
+a {
+    color: var(--principal);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ---------- Menú de arriba ---------- */
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 24px;
+    background: var(--principal);
+    color: #fff;
+}
+
+nav a {
+    color: #fff;
+}
+
+/* El primer enlace (el nombre del tablón) a la izquierda y más grande */
+nav .marca {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-right: auto;
+}
+
+nav .usuario {
+    opacity: 0.85;
+}
+
+/* ---------- Contenido centrado en una "tarjeta" blanca ---------- */
+main {
+    max-width: 860px;
+    margin: 32px auto;
+    padding: 28px 32px;
+    background: var(--tarjeta);
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+h1 {
+    margin-top: 0;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--borde);
+    margin: 24px 0;
+}
+
+/* ---------- Mensajes de éxito y error ---------- */
+.aviso {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin: 0 0 20px;
+}
+
+.aviso-exito {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.aviso-error {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* ---------- Formularios ---------- */
+label {
+    display: block;
+    margin-bottom: 14px;
+    font-weight: 600;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+    display: block;
+    width: 100%;
+    margin-top: 6px;
+    padding: 10px 12px;
+    font: inherit;
+    font-weight: normal;
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    background: #fff;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--principal);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+/* Los <br> de los formularios sobran: ya separa cada label */
+form br {
+    display: none;
+}
+
+button {
+    padding: 10px 18px;
+    font: inherit;
+    font-weight: 600;
+    color: #fff;
+    background: var(--principal);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: var(--principal-oscuro);
+}
+
+/* El botón de borrar va en rojo (es el del formulario /posts/delete) */
+form[action="/posts/delete"] button {
+    background: var(--peligro);
+}
+
+/* ---------- Buscador: campo y botón en la misma línea ---------- */
+form[method="get"] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+form[method="get"] input {
+    flex: 1;
+    min-width: 200px;
+    margin-top: 0;
+}
+
+/* ---------- Tabla de anuncios ---------- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--borde);
+}
+
+th {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: var(--suave);
+}
+
+tr:hover td {
+    background: #f9fafb;
+}
+
+/* ---------- Móvil: menos márgenes y la tabla con scroll lateral ---------- */
+@media (max-width: 640px) {
+    main {
+        margin: 0;
+        padding: 20px 16px;
+        border-radius: 0;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+}
