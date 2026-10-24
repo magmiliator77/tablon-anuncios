@@ -16,7 +16,7 @@ function moverPupila(x, y) {
 
 // Posición de reposo: un poco a la derecha, como en el dibujo original
 function reposo() {
-    moverPupila(ojo.offsetWidth * 0.18, 0);
+    moverPupila(ojo.offsetWidth * 0.2, 0);
 }
 
 if (portada && ojo && pupila) {
@@ -30,8 +30,9 @@ if (portada && ojo && pupila) {
         const angulo = Math.atan2(evento.clientY - centroY, evento.clientX - centroX);
 
         // Lo máximo que puede moverse sin salirse de lo blanco
-        const maxX = caja.width * 0.26;
-        const maxY = caja.height * 0.24;
+        // (el ojo recorta lo que sobresale, así que puede llegar al borde)
+        const maxX = caja.width * 0.22;
+        const maxY = caja.height * 0.2;
 
         moverPupila(Math.cos(angulo) * maxX, Math.sin(angulo) * maxY);
     });

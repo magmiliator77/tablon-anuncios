@@ -36,7 +36,15 @@ require __DIR__ . '/../partials/header.php';
      hecho con HTML, cuya pupila mueve public/js/ojo-elefante.js -->
 <div class="elefante">
     <img src="/img/elefante-php.webp" alt="Elefante de PHP">
-    <div class="ojo"><div class="pupila"></div></div>
+    <div class="ojo">
+        <!-- Pupila con la misma forma que la del dibujo: disco oscuro con
+             una muesca "<" a la izquierda y un brillo ovalado a la derecha -->
+        <svg class="pupila" viewBox="0 0 66 66" aria-hidden="true">
+            <circle cx="33" cy="33" r="33" fill="#2e2a4f"/>
+            <polygon points="-2,16 17,34 -2,55" fill="#fff"/>
+            <ellipse cx="46.5" cy="27.5" rx="7.5" ry="11.5" fill="#fff"/>
+        </svg>
+    </div>
 </div>
 </section>
 
