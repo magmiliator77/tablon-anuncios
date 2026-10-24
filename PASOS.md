@@ -216,10 +216,10 @@ Si cambio [database.sql](database.sql) tengo que borrar la base de datos y crear
 
 ## Lo que me queda para entregar
 
-- [ ] Rellenar [TESTING.md](TESTING.md) probando cada caso.
-- [ ] Ir subiendo a GitHub cada paso con su commit (los pasos 1 y 2 ya están subidos).
-- [ ] Grabar el vídeo, en este orden: registro y login → crear, listar, editar y borrar anuncios → que un usuario no puede tocar los de otro → comentarios → buscador.
+- [x] Rellenar [TESTING.md](TESTING.md) probando cada caso (31 de 31 pasan).
+- [x] Subir a GitHub cada paso con su commit.
+- [x] Comprobar que arranca de cero en otro equipo con `docker compose up -d` (probado descargando el repositorio en una carpeta nueva).
+- [ ] Vídeo: el que tengo está grabado antes de añadir el diseño (CSS). Funciona igual, pero se ve distinto: decidir si lo vuelvo a grabar.
 - [ ] Exportar toda la conversación con la IA a un `.docx` o `.odt`.
 - [ ] Comprimir el código fuente (con TESTING.md) y subirlo a Moodle con el vídeo, el documento y el enlace al repositorio.
 - [ ] Antes de entregar, que el profe pueda ver el repositorio (hacerlo público o invitarle).
-- [ ] Comprobar que arranca de cero en otro equipo con `docker compose up -d`.
