@@ -34,7 +34,7 @@ Hechas con los datos de prueba de `database.sql` (entrando como `ana`).
 
 Al publicar un anuncio sale la pantalla de carga con el elefante de PHP corriendo:
 
-![Pantalla de carga](docs/capturas/12-pantalla-de-carga.png)
+![Pantalla de carga](docs/capturas/12-pantalla-de-carga.gif)
 
 ### Errores
 
