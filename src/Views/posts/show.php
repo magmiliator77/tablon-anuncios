@@ -80,6 +80,6 @@ $isOwner = isset($_SESSION['user_id']) && (int) $_SESSION['user_id'] === (int) $
     <p><a href="/login">Inicia sesión</a> para comentar.</p>
 <?php endif; ?>
 
-<p><a href="/posts">← Volver al tablón</a></p>
+<p><a href="/posts" class="boton boton-secundario">← Volver al tablón</a></p>
 
 <?php require __DIR__ . '/../partials/footer.php'; ?>

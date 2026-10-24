@@ -13,7 +13,7 @@ require __DIR__ . '/partials/header.php';
 <div class="icono-titulo icono-error">⚠️</div>
 <h1>Error <?= htmlspecialchars((string) $code) ?></h1>
 <p><?= htmlspecialchars($message) ?></p>
-<p><a href="/posts">← Volver al tablón</a></p>
+<p><a href="/posts" class="boton boton-secundario">← Volver al tablón</a></p>
 </div>
 
 <?php require __DIR__ . '/partials/footer.php'; ?>

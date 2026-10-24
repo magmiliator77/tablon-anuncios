@@ -21,6 +21,6 @@ require __DIR__ . '/../partials/header.php';
     <button type="submit">Publicar</button>
 </form>
 
-<p><a href="/posts">← Volver al tablón</a></p>
+<p><a href="/posts" class="boton boton-secundario">← Volver al tablón</a></p>
 
 <?php require __DIR__ . '/../partials/footer.php'; ?>

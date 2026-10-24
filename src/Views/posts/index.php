@@ -27,7 +27,7 @@ require __DIR__ . '/../partials/header.php';
     <button type="submit">Buscar</button>
 
     <?php if ($search !== ''): ?>
-        <a href="/posts">Quitar filtro</a>
+        <a href="/posts" class="boton boton-secundario">Quitar filtro</a>
     <?php endif; ?>
 </form>
 </div>

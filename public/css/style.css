@@ -229,9 +229,6 @@ hr {
     border-color: transparent;
 }
 
-.portada form a {
-    color: #fff;
-}
 
 /* ---------- Mensajes de éxito y error ---------- */
 .aviso {
@@ -344,6 +341,18 @@ form[action="/posts/delete"] button:hover {
 
 .boton-editar:hover {
     background: #237a55;      /* Verde más oscuro */
+}
+
+/* Botón "secundario" (Volver, Cancelar, Quitar filtro): blanco con letras
+ * oscuras, para que se note menos que los botones de acción */
+.boton-secundario {
+    color: var(--tinta);
+    background: #fff;
+}
+
+.boton-secundario:hover {
+    color: var(--tinta);
+    background: var(--php-suave);
 }
 
 /* ---------- Buscador: campo y botón en la misma línea ---------- */
@@ -471,13 +480,32 @@ tr:hover td {
 
 /* ---------- Pie ---------- */
 footer {
+    padding: 18px;
+    text-align: center;
+    color: var(--suave);
+    font-size: 0.9rem;
+}
+
+footer p {
+    margin: 4px 0;
+}
+
+/* "Creado por..." más pequeño, con el logo de GitHub al lado */
+footer .autor {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
-    padding: 18px;
-    color: var(--suave);
-    font-size: 0.9rem;
+    gap: 6px;
+    font-size: 0.8rem;
+}
+
+footer .autor a {
+    display: flex;              /* Para que el logo quede centrado con el texto */
+    color: var(--tinta);
+}
+
+footer .autor a:hover {
+    color: var(--php);
 }
 
 

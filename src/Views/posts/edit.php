@@ -25,6 +25,6 @@ require __DIR__ . '/../partials/header.php';
     <button type="submit">Guardar cambios</button>
 </form>
 
-<p><a href="/posts/show?id=<?= htmlspecialchars((string) $post['id']) ?>">← Cancelar</a></p>
+<p><a href="/posts/show?id=<?= htmlspecialchars((string) $post['id']) ?>" class="boton boton-secundario">← Cancelar</a></p>
 
 <?php require __DIR__ . '/../partials/footer.php'; ?>
