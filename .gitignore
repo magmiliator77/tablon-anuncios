@@ -4,3 +4,6 @@ config.php
 
 # vendor/ lo genera Composer, no hace falta subirlo
 vendor/
+
+# .idea/ la crea PhpStorm con mis preferencias del editor: no es del proyecto
+.idea/

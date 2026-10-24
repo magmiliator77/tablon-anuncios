@@ -493,30 +493,24 @@ footer {
     position: relative;
     width: 90%;
     max-width: 700px;
-    height: 140px;
+    height: 180px;
     overflow: hidden;
     border-bottom: 4px dashed var(--php-claro);
 }
 
-/* El elefante mira a la izquierda, así que corre de derecha a izquierda.
- * Dos animaciones a la vez: cruzar la pista y dar saltitos al trotar */
+/* El elefante corriendo: es una imagen animada (img/elefante-corriendo.webp),
+ * así que las patas ya se mueven solas. El CSS solo lo hace cruzar la
+ * pista. Mira a la izquierda, así que va de derecha a izquierda. */
 #pantalla-carga .corredor {
     position: absolute;
-    bottom: 4px;
-    width: 150px;
-    animation:
-        cruzar 2.2s linear infinite,
-        trotar 0.3s ease-in-out infinite alternate;
+    bottom: 0;
+    width: 260px;
+    animation: cruzar 3s linear infinite;
 }
 
 @keyframes cruzar {
     from { left: 100%; }
-    to   { left: -160px; }
-}
-
-@keyframes trotar {
-    from { transform: translateY(0) rotate(2deg); }
-    to   { transform: translateY(-14px) rotate(-3deg); }
+    to   { left: -270px; }
 }
 
 /* El texto "Cargando…" se aclara y oscurece despacio */

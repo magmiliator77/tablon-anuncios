@@ -9,7 +9,7 @@
          Está escondida; la enseña public/js/carga.js si la página tarda -->
     <div id="pantalla-carga" aria-hidden="true">
         <div class="pista">
-            <img src="/img/elefante-php.webp" alt="" class="corredor">
+            <img src="/img/elefante-corriendo.webp" alt="" class="corredor">
         </div>
         <p>Cargando…</p>
     </div>

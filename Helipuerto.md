@@ -108,7 +108,7 @@ Si quiero **añadir una página nueva**, toco siempre tres sitios, en este orden
 
 39. **Todos los estilos (colores, letras, botones, tabla...)**: [public/css/style.css](public/css/style.css). Los colores están arriba del todo, en `:root`: si cambio uno ahí, cambia en toda la web.
 40. **Dónde se enlazan el CSS, las letras de Google Fonts y el icono de la pestaña**: [header.php](src/Views/partials/header.php#L22)
-41. **Las imágenes**: [public/img/](public/img) → `elefante-php.webp` (el elefante de la portada) y `php-archivo.svg` (el icono del menú y de la pestaña).
+41. **Las imágenes**: [public/img/](public/img) → `elefante-php.webp` (el elefante de la portada), `elefante-corriendo.webp` (el elefante corriendo de la pantalla de carga: es el GIF oficial de php.net, de 78x48 px, ampliado a 312x192) y `php-archivo.svg` (el icono del menú y de la pestaña).
 42. **El elefante de la portada y su ojo**: [Views/posts/index.php](src/Views/posts/index.php#L37). Encima del ojo del dibujo hay otro ojo hecho con HTML.
 43. **Que el ojo siga al ratón**: [public/js/ojo-elefante.js](public/js/ojo-elefante.js)
 44. **La pantalla de carga con el elefante corriendo**:
