@@ -36,13 +36,11 @@ class PostController extends Controller
     }
 
     /* =================================================================
-     *  GET /posts/show?id=3 -> un anuncio con sus comentarios
+     *  GET /posts/3 -> un anuncio con sus comentarios
+     *  $id lo saca el Router de la URL (el 3 de /posts/3) y me lo pasa
      * ================================================================= */
-    public function show(): void
+    public function show(int $id): void
     {
-        /* El id llega como texto en la URL (?id=3). (int) lo convierte en número;
-         * si no viene o es basura ("abc"), queda 0 y no existirá ningún anuncio */
-        $id = (int) ($_GET['id'] ?? 0);
         $postModel = new Post($this->db);
         $post = $postModel->getByIdWithAuthor($id);
 
@@ -87,50 +85,47 @@ class PostController extends Controller
     }
 
     /* =================================================================
-     *  GET /posts/edit?id=3 -> formulario de edición (solo el autor)
+     *  GET /posts/edit/3 -> formulario de edición (solo el autor)
      * ================================================================= */
-    public function edit(): void
+    public function edit(int $id): void
     {
         $this->requireLogin();
 
-        $id = (int) ($_GET['id'] ?? 0);
         $post = $this->findOwnPost($id);   // Si no es suyo, se para aquí con un 403
 
         require __DIR__ . '/../Views/posts/edit.php';
     }
 
     /* =================================================================
-     *  POST /posts/update -> guarda los cambios (solo el autor)
+     *  POST /posts/update/3 -> guarda los cambios (solo el autor)
      *  Vuelvo a comprobar que es el autor AQUÍ TAMBIÉN: aunque el botón
      *  de editar no se vea, alguien podría mandar el POST a mano.
      * ================================================================= */
-    public function update(): void
+    public function update(int $id): void
     {
         $this->checkCsrf();
         $this->requireLogin();
 
-        /* Aquí el id viene del formulario ($_POST), no de la URL ($_GET).
+        /* El id viene de la URL, y la URL la puede cambiar cualquiera.
          * No me fío de él: findOwnPost() comprueba que el anuncio sea mío */
-        $id = (int) ($_POST['id'] ?? 0);
         $this->findOwnPost($id);
 
-        $data = $this->readForm("/posts/edit?id=$id");
+        $data = $this->readForm("/posts/edit/$id");
 
         $postModel = new Post($this->db);
         $postModel->update($id, $data);
 
-        $this->redirect("/posts/show?id=$id", 'Anuncio actualizado.');
+        $this->redirect("/posts/$id", 'Anuncio actualizado.');
     }
 
     /* =================================================================
-     *  POST /posts/delete -> borra el anuncio (solo el autor)
+     *  POST /posts/delete/3 -> borra el anuncio (solo el autor)
      * ================================================================= */
-    public function destroy(): void
+    public function destroy(int $id): void
     {
         $this->checkCsrf();
         $this->requireLogin();
 
-        $id = (int) ($_POST['id'] ?? 0);
         $this->findOwnPost($id);
 
         $postModel = new Post($this->db);

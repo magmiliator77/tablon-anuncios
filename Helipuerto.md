@@ -34,7 +34,7 @@ Mis apuntes de dónde mirar según lo que quiera hacer o la duda que tenga. Cada
 ## Cómo viaja una petición
 
 11. **Qué URL ejecuta qué método** (la lista de rutas): [index.php → rutas](public/index.php#L31)
-12. **Cómo se elige y se llama al controlador**: [Router.php → dispatch()](src/Core/Router.php#L32)
+12. **Cómo se elige y se llama al controlador**: [Router.php → dispatch()](src/Core/Router.php#L39). Las rutas pueden llevar `{id}` (rutas limpias): `/posts/delete/3` llama a `destroy(3)`.
 13. **Por qué todo pasa por index.php**: [public/.htaccess](public/.htaccess)
 
 Si quiero **añadir una página nueva**, toco siempre tres sitios, en este orden:
@@ -55,25 +55,25 @@ Si quiero **añadir una página nueva**, toco siempre tres sitios, en este orden
 18. **Los formularios de login y registro**:
     - [Views/auth/login.php](src/Views/auth/login.php)
     - [Views/auth/register.php](src/Views/auth/register.php)
-19. **El menú que cambia según si estás logueado**: [Views/partials/header.php](src/Views/partials/header.php#L33)
+19. **El menú que cambia según si estás logueado**: [Views/partials/header.php](src/Views/partials/header.php#L36)
 
 ## Anuncios y permisos
 
 20. **Listar, ver, crear, editar y borrar anuncios**:
     - [PostController.php → index()](src/Controllers/PostController.php#L23)
-    - [PostController.php → show()](src/Controllers/PostController.php#L41)
-    - [PostController.php → create()](src/Controllers/PostController.php#L61)
-    - [PostController.php → store()](src/Controllers/PostController.php#L71)
-    - [PostController.php → edit()](src/Controllers/PostController.php#L92)
-    - [PostController.php → update()](src/Controllers/PostController.php#L107)
-    - [PostController.php → destroy()](src/Controllers/PostController.php#L128)
+    - [PostController.php → show()](src/Controllers/PostController.php#L42)
+    - [PostController.php → create()](src/Controllers/PostController.php#L59)
+    - [PostController.php → store()](src/Controllers/PostController.php#L69)
+    - [PostController.php → edit()](src/Controllers/PostController.php#L90)
+    - [PostController.php → update()](src/Controllers/PostController.php#L104)
+    - [PostController.php → destroy()](src/Controllers/PostController.php#L124)
 21. **Obligar a estar logueado** (autenticación): [Controller.php → requireLogin()](src/Core/Controller.php#L68)
-22. **Que solo el autor pueda editar o borrar** (autorización): [PostController.php → findOwnPost()](src/Controllers/PostController.php#L148)
-23. **Validar que los campos no estén vacíos**: [PostController.php → readForm()](src/Controllers/PostController.php#L169)
+22. **Que solo el autor pueda editar o borrar** (autorización): [PostController.php → findOwnPost()](src/Controllers/PostController.php#L143)
+23. **Validar que los campos no estén vacíos**: [PostController.php → readForm()](src/Controllers/PostController.php#L164)
 24. **Esconder los botones de Editar y Borrar si no es tuyo**: [show.php → $isOwner](src/Views/posts/show.php#L21)
 25. **Los formularios de crear y editar**:
     - [Views/posts/create.php](src/Views/posts/create.php#L12)
-    - [Views/posts/edit.php](src/Views/posts/edit.php#L14)
+    - [Views/posts/edit.php](src/Views/posts/edit.php#L15)
 
 ## Buscador
 
@@ -99,7 +99,7 @@ Si quiero **añadir una página nueva**, toco siempre tres sitios, en este orden
 
 37. **Los mensajes verdes y rojos**:
     - Se guardan en [Controller.php → redirect()](src/Core/Controller.php#L54)
-    - Se pintan en [header.php → mensajes](src/Views/partials/header.php#L46)
+    - Se pintan en [header.php → mensajes](src/Views/partials/header.php#L49)
 38. **Las páginas de error 404 y 403**:
     - [Controller.php → error()](src/Core/Controller.php#L80)
     - [Views/error.php](src/Views/error.php)

@@ -39,7 +39,7 @@ class CommentController extends Controller
         }
 
         if ($body === '') {
-            $this->redirect("/posts/show?id=$postId", 'El comentario no puede estar vacío.', 'error');
+            $this->redirect("/posts/$postId", 'El comentario no puede estar vacío.', 'error');
         }
 
         /* 3 · Guardo. El autor (user_id) sale de la SESIÓN, nunca del
@@ -52,6 +52,6 @@ class CommentController extends Controller
             'body'    => $body,
         ]);
 
-        $this->redirect("/posts/show?id=$postId", 'Comentario publicado.');
+        $this->redirect("/posts/$postId", 'Comentario publicado.');
     }
 }

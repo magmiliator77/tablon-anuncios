@@ -85,7 +85,7 @@ Si cambio [database.sql](database.sql) tengo que borrar la base de datos y crear
    - [login()](src/Controllers/AuthController.php#L77)
    - [logout()](src/Controllers/AuthController.php#L109)
 3. [src/Views/auth/register.php](src/Views/auth/register.php) y [login.php](src/Views/auth/login.php)
-4. [src/Views/partials/header.php](src/Views/partials/header.php#L33): el menú que cambia según si estoy logueado.
+4. [src/Views/partials/header.php](src/Views/partials/header.php#L36): el menú que cambia según si estoy logueado.
 5. [public/index.php](public/index.php#L21): dónde arranca la sesión.
 
 **Lo que tengo que entender:**
@@ -107,12 +107,12 @@ Si cambio [database.sql](database.sql) tengo que borrar la base de datos y crear
 
 1. [src/Models/Post.php → search()](src/Models/Post.php#L30): el buscador con `LIKE`.
 2. [src/Controllers/PostController.php](src/Controllers/PostController.php):
-   - [index()](src/Controllers/PostController.php#L23) y [show()](src/Controllers/PostController.php#L41)
-   - [create()](src/Controllers/PostController.php#L61) y [store()](src/Controllers/PostController.php#L71)
-   - [edit()](src/Controllers/PostController.php#L92) y [update()](src/Controllers/PostController.php#L107)
-   - [destroy()](src/Controllers/PostController.php#L128)
-   - [findOwnPost()](src/Controllers/PostController.php#L148): la comprobación de que el anuncio es mío.
-   - [readForm()](src/Controllers/PostController.php#L169): la validación de los campos.
+   - [index()](src/Controllers/PostController.php#L23) y [show()](src/Controllers/PostController.php#L42)
+   - [create()](src/Controllers/PostController.php#L59) y [store()](src/Controllers/PostController.php#L69)
+   - [edit()](src/Controllers/PostController.php#L90) y [update()](src/Controllers/PostController.php#L104)
+   - [destroy()](src/Controllers/PostController.php#L124)
+   - [findOwnPost()](src/Controllers/PostController.php#L143): la comprobación de que el anuncio es mío.
+   - [readForm()](src/Controllers/PostController.php#L164): la validación de los campos.
 3. [src/Core/Controller.php → requireLogin()](src/Core/Controller.php#L68): obliga a estar logueado.
 4. Vistas: [index.php](src/Views/posts/index.php), [show.php](src/Views/posts/show.php), [create.php](src/Views/posts/create.php) y [edit.php](src/Views/posts/edit.php).
 
@@ -174,9 +174,31 @@ Si cambio [database.sql](database.sql) tengo que borrar la base de datos y crear
 
 ## Paso 7. Rutas limpias (opcional)
 
-**Qué pide:** cambiar URLs como `/posts/show?id=3` por `/posts/3`. Sube hasta +1 punto aparte.
+**Qué pide:** que el id vaya dentro de la URL: `/posts/delete/3` en vez de `/posts/delete` con el id en un campo oculto, y que el enrutador llame a `destroy(3)`. Que sirva para cualquier controlador, acción e id. Sube hasta +1 punto aparte.
 
-**Estado:** no lo he hecho. Si me sobra tiempo, se tocaría [src/Core/Router.php](src/Core/Router.php#L32) para trocear la URL con expresiones regulares.
+**Estado:** hecho.
+
+**Dónde está:**
+
+1. [src/Core/Router.php → dispatch()](src/Core/Router.php#L39): convierte cada ruta en una expresión regular (`{id}` → `(\d+)`) y, si la URL encaja, llama al método pasándole el número.
+2. [public/index.php → rutas](public/index.php#L31): las rutas con su hueco `{id}`, por ejemplo `'/posts/delete/{id}'`.
+3. [PostController.php](src/Controllers/PostController.php#L42): `show`, `edit`, `update` y `destroy` reciben el id como parámetro (`int $id`), ya no lo leen de `$_GET` ni `$_POST`.
+
+| Antes | Ahora |
+|---|---|
+| `/posts/show?id=3` | `/posts/3` |
+| `/posts/edit?id=3` | `/posts/edit/3` |
+| POST `/posts/update` + id oculto | POST `/posts/update/3` |
+| POST `/posts/delete` + id oculto | POST `/posts/delete/3` → `destroy(3)` |
+
+**Lo que tengo que entender:**
+
+1. Qué es una expresión regular: un patrón de texto. `(\d+)` significa "uno o más dígitos" y los paréntesis guardan lo que encaja en `$matches[1]`.
+2. Por qué `/posts/abc` da 404: `(\d+)` solo acepta números, así que no encaja con ninguna ruta.
+3. Por qué `/posts/create` no se confunde con `/posts/{id}`: "create" no son dígitos.
+4. Que el id de la URL lo puede cambiar cualquiera: por eso `findOwnPost()` sigue comprobando que el anuncio sea tuyo.
+
+**Cómo lo compruebo:** casos 32 a 35 de [TESTING.md](TESTING.md).
 
 ---
 
@@ -210,13 +232,13 @@ Si cambio [database.sql](database.sql) tengo que borrar la base de datos y crear
 
 **Dónde está:** [TESTING.md](TESTING.md)
 
-**Lo que tengo que hacer:** probar los 31 casos uno a uno y rellenar "Resultado" y "¿Pasa?" en cada uno.
+**Lo que tengo que hacer:** probar los 35 casos uno a uno y rellenar "Resultado" y "¿Pasa?" en cada uno.
 
 ---
 
 ## Lo que me queda para entregar
 
-- [x] Rellenar [TESTING.md](TESTING.md) probando cada caso (31 de 31 pasan).
+- [x] Rellenar [TESTING.md](TESTING.md) probando cada caso (35 de 35 pasan).
 - [x] Subir a GitHub cada paso con su commit.
 - [x] Comprobar que arranca de cero en otro equipo con `docker compose up -d` (probado descargando el repositorio en una carpeta nueva).
 - [ ] Vídeo: el que tengo está grabado antes de añadir el diseño (CSS). Funciona igual, pero se ve distinto: decidir si lo vuelvo a grabar.

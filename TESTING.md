@@ -6,7 +6,7 @@ En los casos que dicen "quitando con F12", la prueba consiste en enviar el formu
 
 Usuarios de prueba: `ana@tablon.test` / `1234` y `luis@tablon.test` / `1234`.
 
-**Resumen: 31 de 31 casos pasan.**
+**Resumen: 35 de 35 casos pasan.**
 
 ## Usuarios
 
@@ -84,7 +84,7 @@ Usuarios de prueba: `ana@tablon.test` / `1234` y `luis@tablon.test` / `1234`.
 
 15. Siendo ana, abro en el navegador la URL de editar un anuncio de luis
     - Debería: salir error 403 "No tienes permiso"
-    - Resultado: `/posts/edit?id=2` devuelve código 403 y la página "No tienes permiso para hacer esto: el anuncio no es tuyo."
+    - Resultado: `/posts/edit/2` devuelve código 403 y la página "No tienes permiso para hacer esto: el anuncio no es tuyo."
     - ¿Pasa?: Sí
 
 16. Siendo ana, veo un anuncio de luis
@@ -92,9 +92,9 @@ Usuarios de prueba: `ana@tablon.test` / `1234` y `luis@tablon.test` / `1234`.
     - Resultado: en el detalle del anuncio 2 no aparece ni "Editar" ni "Borrar".
     - ¿Pasa?: Sí
 
-17. Siendo ana, cambio con F12 el `id` oculto del formulario de borrar por el de un anuncio de luis
+17. Siendo ana, cambio con F12 la dirección del formulario de borrar por la de un anuncio de luis
     - Debería: salir error 403 y no borrarse
-    - Resultado: al enviar el borrado con `id=3` (de luis) devuelve 403, y el anuncio 3 sigue en la base de datos.
+    - Resultado: al enviar el borrado a `/posts/delete/3` (de luis) devuelve 403, y el anuncio 3 sigue en la base de datos.
     - ¿Pasa?: Sí
 
 18. Borro un anuncio mío sin comentarios
@@ -107,7 +107,7 @@ Usuarios de prueba: `ana@tablon.test` / `1234` y `luis@tablon.test` / `1234`.
     - Resultado: el anuncio 1 tenía 2 comentarios. Se borra sin errores y en la base de datos quedan 0 comentarios suyos (por el `ON DELETE CASCADE`).
     - ¿Pasa?: Sí
 
-20. Abro `/posts/show?id=999`
+20. Abro `/posts/999`
     - Debería: salir error 404 "Ese anuncio no existe"
     - Resultado: devuelve código 404 con "Ese anuncio no existe."
     - ¿Pasa?: Sí
@@ -171,4 +171,26 @@ Usuarios de prueba: `ana@tablon.test` / `1234` y `luis@tablon.test` / `1234`.
 31. Cambio el valor de `csrf_token` por otro cualquiera
     - Debería: salir error 403
     - Resultado: con `csrf_token=abc123` devuelve 403 y no se crea ningún anuncio.
+    - ¿Pasa?: Sí
+
+## Rutas limpias (paso 7, opcional)
+
+32. Pulso un anuncio del listado
+    - Debería: abrirse con una URL del tipo `/posts/3`
+    - Resultado: los enlaces del listado son `/posts/14`, `/posts/3`, `/posts/2`... y al abrir `/posts/1` sale su detalle (código 200).
+    - ¿Pasa?: Sí
+
+33. Edito un anuncio mío desde las rutas nuevas
+    - Debería: abrir `/posts/edit/ID`, guardar en `/posts/update/ID` y volver a `/posts/ID`
+    - Resultado: el formulario envía a `/posts/update/16`, sale "Anuncio actualizado." y redirige a `/posts/16`.
+    - ¿Pasa?: Sí
+
+34. Abro `/posts/abc` y la URL antigua `/posts/show?id=1`
+    - Debería: salir 404, porque ninguna ruta encaja
+    - Resultado: las dos devuelven código 404 con "404 - Página no encontrada".
+    - ¿Pasa?: Sí
+
+35. Borro un anuncio mío con `/posts/delete/ID`
+    - Debería: el enrutador llamar a `destroy(ID)` y borrarlo
+    - Resultado: POST a `/posts/delete/16` → "Anuncio eliminado." y después `/posts/16` da 404.
     - ¿Pasa?: Sí

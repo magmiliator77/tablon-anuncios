@@ -37,20 +37,21 @@ $router->get('/login',     [AuthController::class, 'showLoginForm']);
 $router->post('/login',    [AuthController::class, 'login']);
 $router->get('/logout',    [AuthController::class, 'logout']);
 
-// Anuncios (el id va en la URL como ?id=3 y se lee con $_GET['id'])
-$router->get('/posts',         [PostController::class, 'index']);    // Listado (+ buscador ?q=)
-$router->get('/posts/show',    [PostController::class, 'show']);     // Ver uno + comentarios
-$router->get('/posts/create',  [PostController::class, 'create']);   // Formulario nuevo
-$router->post('/posts',        [PostController::class, 'store']);    // Guardar nuevo
-$router->get('/posts/edit',    [PostController::class, 'edit']);     // Formulario editar
-$router->post('/posts/update', [PostController::class, 'update']);   // Guardar cambios
-$router->post('/posts/delete', [PostController::class, 'destroy']);  // Borrar
+/* Anuncios. Rutas limpias: el id va DENTRO de la URL, en el hueco {id}.
+ * Ej: /posts/delete/3 -> el Router llama a destroy(3) */
+$router->get('/posts',              [PostController::class, 'index']);    // Listado (+ buscador ?q=)
+$router->get('/posts/create',       [PostController::class, 'create']);   // Formulario nuevo
+$router->post('/posts',             [PostController::class, 'store']);    // Guardar nuevo
+$router->get('/posts/{id}',         [PostController::class, 'show']);     // Ver uno + comentarios
+$router->get('/posts/edit/{id}',    [PostController::class, 'edit']);     // Formulario editar
+$router->post('/posts/update/{id}', [PostController::class, 'update']);   // Guardar cambios
+$router->post('/posts/delete/{id}', [PostController::class, 'destroy']);  // Borrar
 
 // Comentarios
 $router->post('/comments', [CommentController::class, 'store']);     // Guardar comentario
 
 /* 5 · Ver qué me han pedido
- *     $path: la ruta sin el ?id=3  ("/posts/edit?id=3" -> "/posts/edit")
+ *     $path: la ruta sin lo que va detrás de "?"  ("/posts?q=bici" -> "/posts")
  *     $method: 'GET' (abrir un enlace) o 'POST' (enviar un formulario) */
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $method = $_SERVER['REQUEST_METHOD'];

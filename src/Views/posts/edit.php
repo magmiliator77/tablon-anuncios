@@ -11,10 +11,9 @@ require __DIR__ . '/../partials/header.php';
 
 <h1>Editar anuncio</h1>
 
-<form action="/posts/update" method="post">
+<!-- El id va en la URL del formulario: /posts/update/3 -->
+<form action="/posts/update/<?= htmlspecialchars((string) $post['id']) ?>" method="post">
     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
-    <!-- El id va oculto para que update() sepa qué anuncio modificar -->
-    <input type="hidden" name="id" value="<?= htmlspecialchars((string) $post['id']) ?>">
 
     <label>Título: <input type="text" name="title" value="<?= htmlspecialchars($post['title']) ?>" required></label><br>
 
@@ -25,6 +24,6 @@ require __DIR__ . '/../partials/header.php';
     <button type="submit">Guardar cambios</button>
 </form>
 
-<p><a href="/posts/show?id=<?= htmlspecialchars((string) $post['id']) ?>" class="boton boton-secundario">← Cancelar</a></p>
+<p><a href="/posts/<?= htmlspecialchars((string) $post['id']) ?>" class="boton boton-secundario">← Cancelar</a></p>
 
 <?php require __DIR__ . '/../partials/footer.php'; ?>

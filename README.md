@@ -59,6 +59,15 @@ src/Views/      vistas (auth, posts, partials)
 database.sql    tablas + datos de prueba
 ```
 
+## Rutas
+
+Las URLs son "limpias" (paso 7 opcional): el id va dentro de la URL.
+
+- `/posts` → listado (y buscador con `?q=`)
+- `/posts/3` → ver un anuncio
+- `/posts/edit/3` → editar
+- POST `/posts/update/3` y `/posts/delete/3` → guardar cambios y borrar
+
 ## Diseño
 
 La web tiene un diseño propio con los colores del logo de PHP:

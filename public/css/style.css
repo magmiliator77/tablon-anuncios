@@ -331,12 +331,13 @@ button:active,
     box-shadow: 0 1px 0 var(--tinta);
 }
 
-/* El botón de borrar va en rojo (es el del formulario /posts/delete) */
-form[action="/posts/delete"] button {
+/* El botón de borrar va en rojo (es el del formulario /posts/delete/3).
+ * action^= significa "action que EMPIEZA por /posts/delete" */
+form[action^="/posts/delete"] button {
     background: var(--peligro);
 }
 
-form[action="/posts/delete"] button:hover {
+form[action^="/posts/delete"] button:hover {
     background: #b0304a;      /* Rojo más oscuro */
 }
 

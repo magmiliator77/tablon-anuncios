@@ -63,7 +63,7 @@ require __DIR__ . '/../partials/header.php';
         <!-- Una fila de la tabla por cada anuncio. El título enlaza a su detalle -->
         <?php foreach ($posts as $post): ?>
             <tr>
-                <td><a href="/posts/show?id=<?= htmlspecialchars((string) $post['id']) ?>"><?= htmlspecialchars($post['title']) ?></a></td>
+                <td><a href="/posts/<?= htmlspecialchars((string) $post['id']) ?>"><?= htmlspecialchars($post['title']) ?></a></td>
                 <td><span class="etiqueta"><?= htmlspecialchars($post['category']) ?></span></td>
                 <td><?= htmlspecialchars($post['username']) ?></td>
                 <td><?= htmlspecialchars($post['created_at']) ?></td>
