@@ -186,9 +186,53 @@ hr {
 
 /* El elefante de PHP, quieto a la derecha de la portada */
 .elefante {
-    width: 200px;
+    position: relative;        /* Para colocar el ojo encima de la imagen */
+    width: 230px;
     flex-shrink: 0;
     filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.25));
+}
+
+.elefante img {
+    display: block;
+    width: 100%;
+}
+
+/* Ojo blanco que tapa el ojo original del dibujo.
+ * Las medidas son en % de la imagen (960x659 px): el ojo empieza en
+ * x=121, y=205 y mide 44x41 px. Así encaja a cualquier tamaño. */
+.ojo {
+    position: absolute;
+    left: calc(121 / 960 * 100%);
+    top: calc(205 / 659 * 100%);
+    width: calc(44 / 960 * 100%);
+    height: calc(41 / 659 * 100%);
+    background: #fff;
+    border-radius: 50%;
+}
+
+/* Pupila: la mueve el JavaScript desde el centro del ojo */
+.pupila {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 50%;
+    height: 54%;
+    background: var(--tinta);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.08s linear;
+}
+
+/* Brillito blanco de la pupila */
+.pupila::after {
+    content: "";
+    position: absolute;
+    top: 22%;
+    right: 20%;
+    width: 30%;
+    height: 30%;
+    background: #fff;
+    border-radius: 50%;
 }
 
 /* Dentro de la portada el buscador va sobre fondo lila */

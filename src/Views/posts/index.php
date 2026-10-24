@@ -32,8 +32,12 @@ require __DIR__ . '/../partials/header.php';
 </form>
 </div>
 
-<!-- El elefante de PHP (la mascota oficial) -->
-<img src="/img/elefante-php.webp" alt="Elefante de PHP" class="elefante">
+<!-- El elefante de PHP (la mascota oficial). Encima de su ojo va otro ojo
+     hecho con HTML, cuya pupila mueve public/js/ojo-elefante.js -->
+<div class="elefante">
+    <img src="/img/elefante-php.webp" alt="Elefante de PHP">
+    <div class="ojo"><div class="pupila"></div></div>
+</div>
 </section>
 
 <!-- fetchAll() devuelve null si no hay filas: entonces enseño un aviso -->
@@ -59,5 +63,8 @@ require __DIR__ . '/../partials/header.php';
         <?php endforeach; ?>
     </table>
 <?php endif; ?>
+
+<!-- El JavaScript que hace que el ojo siga al ratón -->
+<script src="/js/ojo-elefante.js"></script>
 
 <?php require __DIR__ . '/../partials/footer.php'; ?>
