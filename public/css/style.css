@@ -96,7 +96,7 @@ nav a:hover {
     background: rgba(255, 255, 255, 0.12);
 }
 
-/* La "marca": elefante pequeño + nombre, a la izquierda del todo */
+/* La "marca": icono de archivo PHP + nombre, a la izquierda del todo */
 nav .marca {
     display: flex;
     align-items: center;
@@ -184,69 +184,11 @@ hr {
     flex: 1;
 }
 
-/* ---------- El elefante animado (src/Views/partials/elefante.php) ----------
- * El elefante está quieto; solo se mueven la cola, los ojos y el párpado.
- * transform-box: fill-box hace que cada pieza gire o se escale
- * respecto a sí misma y no respecto a todo el dibujo. */
+/* El elefante de PHP, quieto a la derecha de la portada */
 .elefante {
-    width: 210px;
+    width: 200px;
     flex-shrink: 0;
     filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.25));
-}
-
-.elefante-texto {
-    font-family: "Arial Black", Arial, sans-serif;
-    font-size: 46px;
-    font-weight: 900;
-    font-style: italic;
-    fill: var(--tinta);
-    stroke: #fff;
-    stroke-width: 3px;
-    paint-order: stroke;       /* El borde blanco va por fuera de la letra */
-}
-
-/* Cola: gira desde su punta izquierda (donde se une al cuerpo) */
-.elefante .cola {
-    transform-box: fill-box;
-    transform-origin: left center;
-    animation: cola 1.4s ease-in-out infinite alternate;
-}
-
-@keyframes cola {
-    from { transform: rotate(-18deg); }
-    to   { transform: rotate(14deg); }
-}
-
-/* Pupila: mira a la derecha, al frente, a la izquierda... */
-.elefante .pupila {
-    animation: mirar 7s ease-in-out infinite;
-}
-
-@keyframes mirar {
-    0%, 20%   { transform: translate(0, 0); }
-    30%, 45%  { transform: translate(3px, -1px); }
-    55%, 70%  { transform: translate(-5px, 1px); }
-    80%, 100% { transform: translate(0, 0); }
-}
-
-/* Párpado: casi siempre escondido (escala 0) y baja un instante */
-.elefante .parpado {
-    transform-box: fill-box;
-    transform-origin: center top;
-    transform: scaleY(0);
-    animation: parpadear 4.5s infinite;
-}
-
-@keyframes parpadear {
-    0%, 90%, 100% { transform: scaleY(0); }
-    94%           { transform: scaleY(1); }
-}
-
-/* Si el usuario tiene desactivadas las animaciones en su sistema, se respetan */
-@media (prefers-reduced-motion: reduce) {
-    .elefante * {
-        animation: none !important;
-    }
 }
 
 /* Dentro de la portada el buscador va sobre fondo lila */
