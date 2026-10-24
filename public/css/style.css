@@ -490,6 +490,22 @@ footer p {
     margin: 4px 0;
 }
 
+/* "PHP 8.3" del pie: un enlace con aspecto de etiqueta.
+ * La sombra de abajo le da algo de relieve; al pasar el ratón baja 2px y
+ * la sombra se encoge, así parece que se hunde */
+.etiqueta-enlace {
+    color: var(--tinta);
+    text-decoration: none;
+    box-shadow: 0 2px 0 var(--php);
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.etiqueta-enlace:hover {
+    color: var(--tinta);
+    transform: translateY(2px);
+    box-shadow: 0 0 0 var(--php);
+}
+
 /* "Creado por..." más pequeño, con el logo de GitHub al lado */
 footer .autor {
     display: flex;

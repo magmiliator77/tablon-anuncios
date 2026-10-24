@@ -2,7 +2,14 @@
     </main>
 
     <footer>
-        <p>Hecho con <span class="etiqueta">PHP 8.3</span> · Práctica final 2.8</p>
+        <!-- "PHP 8.3" es un enlace a la página oficial de esa versión.
+             Parece una etiqueta, pero al pasar el ratón se hunde un poco -->
+        <p>
+            Hecho con
+            <a href="https://www.php.net/releases/8.3/es.php" target="_blank" rel="noopener"
+               class="etiqueta etiqueta-enlace" title="Documentación oficial de PHP 8.3">PHP 8.3</a>
+            · Práctica final 2.8
+        </p>
 
         <!-- Autor, con el logo de GitHub (dibujado en SVG) que lleva a mi perfil.
              target="_blank" lo abre en otra pestaña -->
@@ -24,6 +31,6 @@
         </div>
         <p>Cargando…</p>
     </div>
-    <script src="/js/carga.js?v=3"></script>
+    <script src="/js/carga.js?v=4"></script>
 </body>
 </html>

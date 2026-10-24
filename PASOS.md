@@ -198,7 +198,7 @@ Si cambio [database.sql](database.sql) tengo que borrar la base de datos y crear
 1. Por qué el CSS, el JS y las imágenes van en `public/`: es lo único que el navegador puede pedir directamente.
 2. Que el CSS solo cambia cómo se ve. Si lo quito, la web funciona igual, pero fea.
 3. Que el JavaScript se ejecuta en el **navegador**, no en el servidor como el PHP.
-4. Cuándo sale la pantalla de carga: si una página tarda más de 400 ms, y siempre durante 4,5 segundos al publicar un anuncio.
+4. Cuándo sale la pantalla de carga: si una página tarda más de 400 ms, y siempre durante 5 segundos al publicar un anuncio.
 
 **Cómo lo compruebo:** muevo el ratón por la cabecera del tablón y el ojo del elefante lo sigue. Publico un anuncio y sale el elefante corriendo antes de volver al listado.
 
