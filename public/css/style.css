@@ -222,7 +222,6 @@ hr {
     width: calc(72 / 96 * 100%);
     height: calc(72 / 88 * 100%);
     transform: translate(-50%, -50%);
-    transition: transform 0.08s linear;
 }
 
 /* Dentro de la portada el buscador va sobre fondo lila */
