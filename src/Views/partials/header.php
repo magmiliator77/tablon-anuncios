@@ -24,10 +24,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;700&display=swap">
     <!-- Los estilos de toda la web (public/css/style.css).
-         ?v=5 es la "versión": el navegador guarda el CSS en caché y, si lo
-         cambio, puede seguir usando el viejo. Subiendo el número (v=6, v=7...)
+         ?v=6 es la "versión": el navegador guarda el CSS en caché y, si lo
+         cambio, puede seguir usando el viejo. Subiendo el número (v=7, v=8...)
          lo ve como un archivo nuevo y lo vuelve a descargar. Igual con los .js -->
-    <link rel="stylesheet" href="/css/style.css?v=5">
+    <link rel="stylesheet" href="/css/style.css?v=6">
     <!-- Icono de la pestaña: la hoja de "archivo PHP" -->
     <link rel="icon" href="/img/php-archivo.svg" type="image/svg+xml">
 </head>

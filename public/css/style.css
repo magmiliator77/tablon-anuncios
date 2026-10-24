@@ -298,6 +298,12 @@ form br {
 button,
 .boton {
     display: inline-block;
+    /* Misma altura de línea y ancho mínimo para TODOS, así un <button>
+     * y un enlace <a class="boton"> miden exactamente lo mismo */
+    line-height: 24px;
+    min-width: 130px;
+    text-align: center;
+    vertical-align: middle;
     padding: 10px 22px;
     font-family: "Fredoka", sans-serif;
     font-size: 1rem;
