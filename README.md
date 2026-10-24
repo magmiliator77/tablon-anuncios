@@ -2,6 +2,46 @@
 
 Aplicación MVC en PHP sin framework: usuarios, anuncios con categoría, comentarios, buscador, permisos por autor y protección CSRF.
 
+## Capturas
+
+Hechas con los datos de prueba de `database.sql` (entrando como `ana`).
+
+### Tablón y buscador
+
+| Portada (sin sesión) | Portada (con sesión) |
+|---|---|
+| ![Portada sin sesión](docs/capturas/01-portada.png) | ![Portada con sesión](docs/capturas/04-portada-con-sesion.png) |
+
+| Buscador (`/posts?q=venta`) | En el móvil |
+|---|---|
+| ![Buscador](docs/capturas/05-buscador.png) | <img src="docs/capturas/13-movil.png" alt="En el móvil" width="260"> |
+
+### Usuarios
+
+| Iniciar sesión | Registrarse |
+|---|---|
+| ![Login](docs/capturas/02-login.png) | ![Registro](docs/capturas/03-registro.png) |
+
+### Anuncios y comentarios
+
+| Anuncio mío: puedo editar y borrar | Anuncio de otro: no salen los botones |
+|---|---|
+| ![Detalle propio](docs/capturas/06-detalle-propio.png) | ![Detalle ajeno](docs/capturas/07-detalle-ajeno.png) |
+
+| Nuevo anuncio | Editar anuncio (`/posts/edit/1`) |
+|---|---|
+| ![Nuevo anuncio](docs/capturas/08-nuevo-anuncio.png) | ![Editar anuncio](docs/capturas/09-editar-anuncio.png) |
+
+Al publicar un anuncio sale la pantalla de carga con el elefante de PHP corriendo:
+
+![Pantalla de carga](docs/capturas/12-pantalla-de-carga.png)
+
+### Errores
+
+| 403: editar un anuncio de otro (`/posts/edit/2`) | 404: un anuncio que no existe (`/posts/999`) |
+|---|---|
+| ![Error 403](docs/capturas/10-error-403.png) | ![Error 404](docs/capturas/11-error-404.png) |
+
 ## Requisitos
 
 - Docker Desktop instalado y **abierto** (el icono de la ballena debe estar en marcha).
@@ -57,6 +97,7 @@ src/Models/     BaseModel (abstracta), User, Post, Comment
 src/Controllers AuthController, PostController, CommentController
 src/Views/      vistas (auth, posts, partials)
 database.sql    tablas + datos de prueba
+docs/capturas/  capturas de la aplicación (las del README)
 ```
 
 ## Rutas
