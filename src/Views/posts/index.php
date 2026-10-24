@@ -14,7 +14,11 @@ $pageTitle = 'Tablón de anuncios';
 require __DIR__ . '/../partials/header.php';
 ?>
 
+<!-- Cabecera grande con el elefante; el buscador va dentro -->
+<section class="portada">
+<div class="texto">
 <h1>Tablón de anuncios</h1>
+<p>Compra, vende, busca grupo o pregunta lo que necesites.</p>
 
 <!-- Buscador: method="get" porque buscar no cambia nada en el servidor.
      Manda a /posts?q=lo-que-escribas -->
@@ -26,6 +30,10 @@ require __DIR__ . '/../partials/header.php';
         <a href="/posts">Quitar filtro</a>
     <?php endif; ?>
 </form>
+</div>
+
+<img src="/img/elefante-php.webp" alt="Elefante de PHP">
+</section>
 
 <!-- fetchAll() devuelve null si no hay filas: entonces enseño un aviso -->
 <?php if ($posts === null): ?>
@@ -43,7 +51,7 @@ require __DIR__ . '/../partials/header.php';
         <?php foreach ($posts as $post): ?>
             <tr>
                 <td><a href="/posts/show?id=<?= htmlspecialchars((string) $post['id']) ?>"><?= htmlspecialchars($post['title']) ?></a></td>
-                <td><?= htmlspecialchars($post['category']) ?></td>
+                <td><span class="etiqueta"><?= htmlspecialchars($post['category']) ?></span></td>
                 <td><?= htmlspecialchars($post['username']) ?></td>
                 <td><?= htmlspecialchars($post['created_at']) ?></td>
             </tr>

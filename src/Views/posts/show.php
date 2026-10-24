@@ -11,6 +11,7 @@
 /** @var array $post */
 /** @var array|null $comments */
 
+
 $pageTitle = $post['title'];
 require __DIR__ . '/../partials/header.php';
 
@@ -21,16 +22,17 @@ $isOwner = isset($_SESSION['user_id']) && (int) $_SESSION['user_id'] === (int) $
 ?>
 
 <h1><?= htmlspecialchars($post['title']) ?></h1>
-<p>
-    <strong>Categoría:</strong> <?= htmlspecialchars($post['category']) ?> ·
+<p class="datos">
+    <span class="etiqueta"><?= htmlspecialchars($post['category']) ?></span> ·
     <strong>Autor:</strong> <?= htmlspecialchars($post['username']) ?> ·
     <?= htmlspecialchars($post['created_at']) ?>
 </p>
 
 <!-- nl2br() convierte los saltos de línea en <br>. Va DESPUÉS de htmlspecialchars -->
-<p><?= nl2br(htmlspecialchars($post['body'])) ?></p>
+<p class="cuerpo"><?= nl2br(htmlspecialchars($post['body'])) ?></p>
 
 <?php if ($isOwner): ?>
+<div class="acciones">
     <a href="/posts/edit?id=<?= htmlspecialchars((string) $post['id']) ?>">✏️ Editar</a>
 
     <!-- Borrar va por POST (nunca con un enlace GET) y con token CSRF -->
@@ -41,6 +43,7 @@ $isOwner = isset($_SESSION['user_id']) && (int) $_SESSION['user_id'] === (int) $
 
         <button type="submit">🗑️ Borrar</button>
     </form>
+</div>
 <?php endif; ?>
 
 <hr>
@@ -52,9 +55,9 @@ $isOwner = isset($_SESSION['user_id']) && (int) $_SESSION['user_id'] === (int) $
 <?php else: ?>
     <!-- Vienen ya ordenados del más antiguo al más nuevo (ORDER BY en getByPost) -->
     <?php foreach ($comments as $comment): ?>
-        <p>
+        <p class="comentario">
             <strong><?= htmlspecialchars($comment['username']) ?></strong>
-            (<?= htmlspecialchars($comment['created_at']) ?>):<br>
+            <span class="fecha"><?= htmlspecialchars($comment['created_at']) ?></span><br>
             <?= nl2br(htmlspecialchars($comment['body'])) ?>
         </p>
     <?php endforeach; ?>

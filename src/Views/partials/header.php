@@ -19,13 +19,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= htmlspecialchars($pageTitle ?? 'Tablón') ?></title>
+    <!-- Letras de Google Fonts: Fredoka (títulos) y Nunito (texto) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;700&display=swap">
     <!-- Los estilos de toda la web (public/css/style.css) -->
     <link rel="stylesheet" href="/css/style.css">
+    <!-- Icono de la pestaña: el elefante de PHP -->
+    <link rel="icon" href="/img/elefante-php.webp">
 </head>
 <body>
     <!-- Menú: cambia según haya o no un usuario en la sesión -->
     <nav>
-        <a href="/posts" class="marca">📋 Tablón de anuncios</a>
+        <a href="/posts" class="marca"><img src="/img/elefante-php.webp" alt="">Tablón PHP</a>
 
         <?php if (isset($_SESSION['user_id'])): ?>
             <a href="/posts/create">➕ Nuevo anuncio</a>
@@ -37,9 +43,6 @@
         <?php endif; ?>
     </nav>
 
-    <!-- Todo el contenido de la página va dentro de <main> (lo cierra footer.php) -->
-    <main>
-
     <?php if (!empty($_SESSION['success'])): ?>
         <p class="aviso aviso-exito"><?= htmlspecialchars($_SESSION['success']) ?></p>
         <?php unset($_SESSION['success']); ?>
@@ -49,3 +52,6 @@
         <p class="aviso aviso-error"><?= htmlspecialchars($_SESSION['error']) ?></p>
         <?php unset($_SESSION['error']); ?>
     <?php endif; ?>
+
+    <!-- Todo el contenido de la página va dentro de <main> (lo cierra footer.php) -->
+    <main>

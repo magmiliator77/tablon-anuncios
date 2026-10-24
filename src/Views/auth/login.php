@@ -5,6 +5,8 @@ $pageTitle = 'Iniciar sesión';
 require __DIR__ . '/../partials/header.php';
 ?>
 
+<div class="centrado">
+<img src="/img/elefante-php.webp" alt="" class="elefante-titulo">
 <h1>Iniciar sesión</h1>
 
 <form action="/login" method="post">
@@ -19,5 +21,6 @@ require __DIR__ . '/../partials/header.php';
 </form>
 
 <p>¿No tienes cuenta? <a href="/register">Regístrate</a></p>
+</div>
 
 <?php require __DIR__ . '/../partials/footer.php'; ?>

@@ -1,23 +1,30 @@
 /* #####################################################################
- *  ESTILOS DE TODA LA APLICACIÓN
+ *  ESTILOS DE TODA LA APLICACIÓN — tema "elefante de PHP"
  *  Lo enlaza header.php, así que se aplica a todas las páginas.
  *  Está en public/ porque es lo único que el navegador puede pedir
  *  directamente (el .htaccess deja pasar los archivos que existen).
- *  Casi todo va por etiqueta (form, table, button...), así las vistas
- *  no necesitan clases y siguen siendo HTML sencillo.
+ *
+ *  Los colores salen del logo de PHP: el lila del elefante y el azul
+ *  oscuro de su contorno. Las letras redondas (Fredoka) van a juego
+ *  con el dibujo; el texto normal usa Nunito, que se lee bien.
  * ##################################################################### */
 
-/* Colores en variables: si quiero cambiar el color principal, lo cambio solo aquí */
+/* Colores en variables: si quiero cambiar el tema, lo cambio solo aquí */
 :root {
-    --fondo: #f3f4f8;
+    --php: #777bb3;           /* Lila oficial de PHP */
+    --php-claro: #a9aedc;
+    --php-suave: #eceefa;
+    --php-oscuro: #4f5b93;
+    --tinta: #2e2a4f;         /* El azul casi negro del contorno del elefante */
+    --fondo: #f5f4fb;
     --tarjeta: #ffffff;
-    --texto: #1f2937;
-    --suave: #6b7280;
-    --borde: #e5e7eb;
-    --principal: #4f46e5;
-    --principal-oscuro: #4338ca;
-    --peligro: #dc2626;
-    --exito: #16a34a;
+    --texto: #2e2a4f;
+    --suave: #6e6a8f;
+    --borde: #e2e0f0;
+    --peligro: #d64560;
+    --exito: #2f9e6e;
+    --radio: 18px;
+    --sombra: 0 4px 0 var(--borde), 0 12px 30px rgba(46, 42, 79, 0.08);
 }
 
 * {
@@ -26,19 +33,44 @@
 
 body {
     margin: 0;
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    background: var(--fondo);
-    color: var(--texto);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: "Nunito", system-ui, sans-serif;
+    font-size: 16px;
     line-height: 1.6;
+    color: var(--texto);
+    /* Fondo con puntitos lilas, como un tablón de corcho pero en PHP */
+    background-color: var(--fondo);
+    background-image: radial-gradient(var(--php-claro) 1px, transparent 1px);
+    background-size: 22px 22px;
+}
+
+h1, h2 {
+    font-family: "Fredoka", "Nunito", sans-serif;
+    font-weight: 600;
+    color: var(--tinta);
+    line-height: 1.2;
+}
+
+h1 {
+    margin: 0 0 16px;
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.4rem;
 }
 
 a {
-    color: var(--principal);
-    text-decoration: none;
+    color: var(--php-oscuro);
+    font-weight: 700;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
 }
 
 a:hover {
-    text-decoration: underline;
+    color: var(--php);
 }
 
 /* ---------- Menú de arriba ---------- */
@@ -46,69 +78,153 @@ nav {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 16px;
-    padding: 14px 24px;
-    background: var(--principal);
-    color: #fff;
+    gap: 8px;
+    padding: 10px 24px;
+    background: var(--tinta);
+    border-bottom: 4px solid var(--php);
 }
 
 nav a {
+    padding: 6px 14px;
+    border-radius: 999px;
     color: #fff;
+    text-decoration: none;
 }
 
-/* El primer enlace (el nombre del tablón) a la izquierda y más grande */
+nav a:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+/* La "marca": elefante pequeño + nombre, a la izquierda del todo */
 nav .marca {
-    font-size: 1.15rem;
-    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     margin-right: auto;
+    padding-left: 0;
+    font-family: "Fredoka", sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+nav .marca:hover {
+    background: none;
+}
+
+nav .marca img {
+    height: 38px;
+    transition: transform 0.3s;
+}
+
+/* Al pasar el ratón, el elefante se inclina un poco */
+nav .marca:hover img {
+    transform: rotate(-8deg) scale(1.08);
 }
 
 nav .usuario {
-    opacity: 0.85;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: var(--php-oscuro);
+    color: var(--php-suave);
+    font-size: 0.9rem;
 }
 
-/* ---------- Contenido centrado en una "tarjeta" blanca ---------- */
+/* ---------- Contenido: una "tarjeta" blanca centrada ---------- */
 main {
-    max-width: 860px;
-    margin: 32px auto;
-    padding: 28px 32px;
+    flex: 1;
+    width: calc(100% - 32px);
+    max-width: 900px;
+    margin: 36px auto;
+    padding: 32px 36px;
     background: var(--tarjeta);
-    border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-}
-
-h1 {
-    margin-top: 0;
+    border: 2px solid var(--tinta);
+    border-radius: var(--radio);
+    box-shadow: 6px 6px 0 var(--php);
 }
 
 hr {
     border: none;
-    border-top: 1px solid var(--borde);
-    margin: 24px 0;
+    border-top: 2px dashed var(--borde);
+    margin: 28px 0;
+}
+
+/* ---------- Portada: cabecera grande con el elefante ---------- */
+.portada {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin: -32px -36px 28px;     /* Ocupa todo el ancho de la tarjeta */
+    padding: 32px 36px;
+    border-radius: calc(var(--radio) - 2px) calc(var(--radio) - 2px) 0 0;
+    background: linear-gradient(135deg, var(--php-oscuro), var(--php));
+    color: #fff;
+    overflow: hidden;
+}
+
+.portada h1 {
+    color: #fff;
+    font-size: 2.4rem;
+}
+
+.portada p {
+    margin: 0 0 18px;
+    color: var(--php-suave);
+}
+
+.portada .texto {
+    flex: 1;
+}
+
+.portada img {
+    width: 190px;
+    flex-shrink: 0;
+    filter: drop-shadow(0 10px 12px rgba(0, 0, 0, 0.25));
+    animation: flotar 4s ease-in-out infinite;
+}
+
+/* El elefante sube y baja despacio */
+@keyframes flotar {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50%      { transform: translateY(-10px) rotate(2deg); }
+}
+
+/* Dentro de la portada el buscador va sobre fondo lila */
+.portada form input {
+    border-color: transparent;
+}
+
+.portada form a {
+    color: #fff;
 }
 
 /* ---------- Mensajes de éxito y error ---------- */
 .aviso {
-    padding: 12px 16px;
-    border-radius: 8px;
-    margin: 0 0 20px;
+    width: calc(100% - 32px);
+    max-width: 900px;
+    margin: 24px auto -12px;
+    padding: 12px 18px;
+    border: 2px solid currentColor;
+    border-radius: 12px;
+    font-weight: 700;
 }
 
 .aviso-exito {
-    background: #dcfce7;
-    color: #166534;
+    background: #e3f6ee;
+    color: var(--exito);
 }
 
 .aviso-error {
-    background: #fee2e2;
-    color: #991b1b;
+    background: #fde8ec;
+    color: var(--peligro);
 }
 
 /* ---------- Formularios ---------- */
 label {
     display: block;
-    margin-bottom: 14px;
-    font-weight: 600;
+    margin-bottom: 16px;
+    font-weight: 700;
 }
 
 input[type="text"],
@@ -118,19 +234,21 @@ textarea {
     display: block;
     width: 100%;
     margin-top: 6px;
-    padding: 10px 12px;
+    padding: 11px 14px;
     font: inherit;
     font-weight: normal;
-    border: 1px solid var(--borde);
-    border-radius: 8px;
-    background: #fff;
+    color: var(--texto);
+    background: var(--fondo);
+    border: 2px solid var(--borde);
+    border-radius: 12px;
+    transition: border-color 0.2s, background 0.2s;
 }
 
 input:focus,
 textarea:focus {
     outline: none;
-    border-color: var(--principal);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+    background: #fff;
+    border-color: var(--php);
 }
 
 /* Los <br> de los formularios sobran: ya separa cada label */
@@ -138,19 +256,28 @@ form br {
     display: none;
 }
 
+/* Botones "de juguete": con una sombra dura debajo que se hunde al pulsar */
 button {
-    padding: 10px 18px;
-    font: inherit;
+    padding: 10px 22px;
+    font-family: "Fredoka", sans-serif;
+    font-size: 1rem;
     font-weight: 600;
     color: #fff;
-    background: var(--principal);
-    border: none;
-    border-radius: 8px;
+    background: var(--php);
+    border: 2px solid var(--tinta);
+    border-radius: 12px;
+    box-shadow: 0 4px 0 var(--tinta);
     cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
 }
 
 button:hover {
-    background: var(--principal-oscuro);
+    background: var(--php-oscuro);
+}
+
+button:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 var(--tinta);
 }
 
 /* El botón de borrar va en rojo (es el del formulario /posts/delete) */
@@ -164,44 +291,151 @@ form[method="get"] {
     flex-wrap: wrap;
     align-items: center;
     gap: 10px;
-    margin-bottom: 24px;
 }
 
 form[method="get"] input {
     flex: 1;
     min-width: 200px;
     margin-top: 0;
+    background: #fff;
 }
 
 /* ---------- Tabla de anuncios ---------- */
 table {
     width: 100%;
-    border-collapse: collapse;
-}
-
-th,
-td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid var(--borde);
+    border-collapse: separate;
+    border-spacing: 0 8px;       /* Separa las filas como si fueran tarjetas */
 }
 
 th {
-    font-size: 0.85rem;
+    padding: 0 14px;
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-align: left;
     text-transform: uppercase;
     color: var(--suave);
 }
 
-tr:hover td {
-    background: #f9fafb;
+td {
+    padding: 14px;
+    background: var(--fondo);
+    transition: background 0.2s;
 }
 
-/* ---------- Móvil: menos márgenes y la tabla con scroll lateral ---------- */
+td:first-child {
+    border-radius: 12px 0 0 12px;
+}
+
+td:last-child {
+    border-radius: 0 12px 12px 0;
+    color: var(--suave);
+    font-size: 0.9rem;
+}
+
+tr:hover td {
+    background: var(--php-suave);
+}
+
+/* La categoría como una "pegatina" */
+.etiqueta {
+    display: inline-block;
+    padding: 2px 12px;
+    border-radius: 999px;
+    background: var(--php-claro);
+    color: var(--tinta);
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+/* ---------- Detalle de un anuncio ---------- */
+.datos {
+    color: var(--suave);
+}
+
+.cuerpo {
+    padding: 18px 20px;
+    border-left: 5px solid var(--php);
+    border-radius: 0 12px 12px 0;
+    background: var(--fondo);
+    font-size: 1.05rem;
+}
+
+.acciones {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+/* Cada comentario como un "bocadillo" */
+.comentario {
+    margin: 0 0 14px;
+    padding: 12px 16px;
+    background: var(--php-suave);
+    border-radius: 4px 16px 16px 16px;
+}
+
+.comentario .fecha {
+    color: var(--suave);
+    font-size: 0.85rem;
+}
+
+/* ---------- Login, registro y errores: elefante encima del título ---------- */
+.elefante-titulo {
+    display: block;
+    width: 110px;
+    margin: 0 auto 12px;
+}
+
+.centrado {
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+.centrado h1 {
+    text-align: center;
+}
+
+/* En la página de error el elefante sale "mareado" (girado) */
+.elefante-error {
+    transform: rotate(-12deg);
+    filter: grayscale(0.4);
+}
+
+/* ---------- Pie ---------- */
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 18px;
+    color: var(--suave);
+    font-size: 0.9rem;
+}
+
+footer img {
+    height: 22px;
+}
+
+/* ---------- Móvil: menos márgenes y el elefante más pequeño ---------- */
 @media (max-width: 640px) {
+    nav {
+        padding: 10px 16px;
+    }
+
     main {
-        margin: 0;
-        padding: 20px 16px;
-        border-radius: 0;
+        margin: 16px auto;
+        padding: 24px 18px;
+    }
+
+    .portada {
+        flex-direction: column-reverse;
+        text-align: center;
+        margin: -24px -18px 24px;
+        padding: 24px 18px;
+    }
+
+    .portada img {
+        width: 120px;
     }
 
     table {
