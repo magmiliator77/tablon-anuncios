@@ -27,7 +27,8 @@ class PostController extends Controller
         $search = trim($_GET['q'] ?? '');
 
         // Creo el modelo pasándole la conexión y le pido los anuncios
-        $posts = (new Post($this->db))->search($search);
+        $postModel = new Post($this->db);
+        $posts = $postModel->search($search);
 
         /* La vista se "pega" aquí con require, así que puede usar
          * directamente las variables $posts y $search */
@@ -42,14 +43,16 @@ class PostController extends Controller
         /* El id llega como texto en la URL (?id=3). (int) lo convierte en número;
          * si no viene o es basura ("abc"), queda 0 y no existirá ningún anuncio */
         $id = (int) ($_GET['id'] ?? 0);
-        $post = (new Post($this->db))->getByIdWithAuthor($id);
+        $postModel = new Post($this->db);
+        $post = $postModel->getByIdWithAuthor($id);
 
         if ($post === null) {
             $this->error(404, 'Ese anuncio no existe.');
         }
 
         // Relación 1:N -> los comentarios de ESTE anuncio
-        $comments = (new Comment($this->db))->getByPost($id);
+        $commentModel = new Comment($this->db);
+        $comments = $commentModel->getByPost($id);
 
         require __DIR__ . '/../Views/posts/show.php';
     }
@@ -77,7 +80,8 @@ class PostController extends Controller
          * (un campo del formulario lo puede cambiar cualquiera) */
         $data['user_id'] = $_SESSION['user_id'];
 
-        (new Post($this->db))->insert($data);
+        $postModel = new Post($this->db);
+        $postModel->insert($data);
 
         $this->redirect('/posts', 'Anuncio publicado.');
     }
@@ -112,7 +116,8 @@ class PostController extends Controller
 
         $data = $this->readForm("/posts/edit?id=$id");
 
-        (new Post($this->db))->update($id, $data);
+        $postModel = new Post($this->db);
+        $postModel->update($id, $data);
 
         $this->redirect("/posts/show?id=$id", 'Anuncio actualizado.');
     }
@@ -128,7 +133,8 @@ class PostController extends Controller
         $id = (int) ($_POST['id'] ?? 0);
         $this->findOwnPost($id);
 
-        (new Post($this->db))->delete($id);
+        $postModel = new Post($this->db);
+        $postModel->delete($id);
 
         $this->redirect('/posts', 'Anuncio eliminado.');
     }
@@ -141,7 +147,8 @@ class PostController extends Controller
      * ================================================================= */
     private function findOwnPost(int $id): array
     {
-        $post = (new Post($this->db))->getById($id);
+        $postModel = new Post($this->db);
+        $post = $postModel->getById($id);
 
         if ($post === null) {
             $this->error(404, 'Ese anuncio no existe.');

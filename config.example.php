@@ -15,7 +15,7 @@ return [
         'host'    => 'mysql',
         'dbname'  => 'tablon_anuncios',
         'user'    => 'root',
-        'pass'    => 'root',
+        'pass'    => 'Tablon_2026',
         'charset' => 'utf8mb4',
     ],
 ];

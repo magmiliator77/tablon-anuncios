@@ -41,11 +41,16 @@ class Router
             return;
         }
 
-        // 3 · Separo [NombreDelControlador, 'nombreDelMetodo']
-        [$controllerClass, $methodName] = $action;
+        // 3 · $action es un array de 2 cosas: [NombreDelControlador, 'nombreDelMetodo']
+        $controllerClass = $action[0];   // Ej: 'App\Controllers\PostController'
+        $methodName = $action[1];        // Ej: 'index'
 
         /* 4 · Creo el controlador y llamo a su método.
-         *     Por ejemplo, para GET /posts esto hace: (new PostController())->index(); */
+         *     PHP deja usar una variable como nombre de clase o de método.
+         *     Por ejemplo, para GET /posts estas dos líneas hacen lo mismo que:
+         *         $controller = new PostController();
+         *         $controller->index();
+         *     (En Java esto solo se podría hacer con reflexión) */
         $controller = new $controllerClass();
         $controller->$methodName();
     }

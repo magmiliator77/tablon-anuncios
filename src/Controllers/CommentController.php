@@ -32,7 +32,9 @@ class CommentController extends Controller
         $postId = (int) ($_POST['post_id'] ?? 0);
         $body = trim($_POST['body'] ?? '');
 
-        if ((new Post($this->db))->getById($postId) === null) {
+        $postModel = new Post($this->db);
+
+        if ($postModel->getById($postId) === null) {
             $this->error(404, 'Ese anuncio no existe.');
         }
 
@@ -43,7 +45,8 @@ class CommentController extends Controller
         /* 3 · Guardo. El autor (user_id) sale de la SESIÓN, nunca del
          *     formulario: si viniera de un campo oculto, cualquiera podría
          *     cambiarlo y comentar haciéndose pasar por otro usuario. */
-        (new Comment($this->db))->insert([
+        $commentModel = new Comment($this->db);
+        $commentModel->insert([
             'post_id' => $postId,
             'user_id' => $_SESSION['user_id'],
             'body'    => $body,

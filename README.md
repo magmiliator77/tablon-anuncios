@@ -13,7 +13,7 @@ docker compose up -d
 ```
 
 - Web: http://localhost:8080
-- phpMyAdmin: http://localhost:8081 (root / root)
+- phpMyAdmin: http://localhost:8081 (root / Tablon_2026)
 
 La primera vez se crea la base de datos con `database.sql` y el contenedor copia `config.example.php` a `config.php`.
 
@@ -49,11 +49,24 @@ docker compose up -d
 
 ```
 public/         index.php (front controller) y .htaccess
+public/css/     style.css (todo el diseño)
+public/js/      ojo-elefante.js (el ojo sigue al ratón) y carga.js (pantalla de carga)
+public/img/     el elefante de PHP y el icono de archivo PHP
 src/Core/       Database (acceso a datos), Router, Controller (base)
 src/Models/     BaseModel (abstracta), User, Post, Comment
 src/Controllers AuthController, PostController, CommentController
 src/Views/      vistas (auth, posts, partials)
 database.sql    tablas + datos de prueba
 ```
+
+## Diseño
+
+La web tiene un diseño propio con los colores del logo de PHP:
+
+- En la portada está el elefante de PHP, y su ojo sigue al ratón.
+- Al publicar un anuncio sale una pantalla de carga con el elefante corriendo.
+- Se ve bien también en el móvil.
+
+Las letras se cargan de Google Fonts: sin internet la web funciona igual, pero con la letra normal del sistema.
 
 El orden en el que leo el código está en [PASOS.md](PASOS.md), dónde mirar según cada duda en [Helipuerto.md](Helipuerto.md) y las pruebas en [TESTING.md](TESTING.md).

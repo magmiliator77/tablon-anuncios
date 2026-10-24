@@ -38,7 +38,9 @@ abstract class Controller
         // El token que llega oculto en el formulario (o '' si no viene)
         $token = $_POST['csrf_token'] ?? '';
 
-        if (!hash_equals($_SESSION['csrf_token'] ?? '', $token)) {
+        /* is_string: si alguien manda csrf_token[]=x llega un array, y
+         * hash_equals() daría un error 500. Así se rechaza con un 403 normal */
+        if (!is_string($token) || !hash_equals($_SESSION['csrf_token'] ?? '', $token)) {
             $this->error(403, 'Token CSRF inválido. Recarga la página e inténtalo de nuevo.');
         }
     }
@@ -48,9 +50,8 @@ abstract class Controller
      *  mensaje que se guarda en la sesión y que mostrará la siguiente
      *  página (src/Views/partials/header.php). $type: 'success' o 'error'
      *  exit corta la ejecución: después de redirigir no se hace nada más.
-     *  ": never" significa que esta función nunca "vuelve" (siempre acaba en exit)
      * ================================================================= */
-    protected function redirect(string $url, string $message = '', string $type = 'success'): never
+    protected function redirect(string $url, string $message = '', string $type = 'success'): void
     {
         if ($message !== '') {
             $_SESSION[$type] = $message;
@@ -74,8 +75,9 @@ abstract class Controller
     /* =================================================================
      *  error(): página de error con su código HTTP y paro.
      *  404 = no existe    403 = existe, pero no tienes permiso
+     *  exit corta la ejecución: lo que haya después ya no se ejecuta.
      * ================================================================= */
-    protected function error(int $code, string $message): never
+    protected function error(int $code, string $message): void
     {
         http_response_code($code);
         require __DIR__ . '/../Views/error.php';

@@ -17,7 +17,7 @@ Para dudas concretas ("¿dónde está X?", "me sale este error") uso [Helipuerto
 2. En una terminal, dentro de esta carpeta, ejecuto `docker compose up -d`.
 3. Abro http://localhost:8080 → debe salir el tablón con 3 anuncios.
 4. Entro con `ana@tablon.test` / `1234` (o `luis@tablon.test` / `1234`).
-5. Para ver la base de datos: http://localhost:8081 (root / root).
+5. Para ver la base de datos: http://localhost:8081 (root / Tablon_2026).
 
 Si cambio [database.sql](database.sql) tengo que borrar la base de datos y crearla otra vez, porque solo se ejecuta la primera vez: `docker compose down -v` y luego `docker compose up -d`.
 
@@ -56,11 +56,11 @@ Si cambio [database.sql](database.sql) tengo que borrar la base de datos y crear
 
 **Dónde está:** [src/Models/BaseModel.php](src/Models/BaseModel.php)
 
-1. [getAll()](src/Models/BaseModel.php#L29)
-2. [getById()](src/Models/BaseModel.php#L35)
-3. [delete()](src/Models/BaseModel.php#L45): aquí está mi respuesta a la pregunta del enunciado de si va en `Database` o en `BaseModel`.
-4. [insert()](src/Models/BaseModel.php#L57)
-5. [update()](src/Models/BaseModel.php#L71)
+1. [getAll()](src/Models/BaseModel.php#L33)
+2. [getById()](src/Models/BaseModel.php#L39)
+3. [delete()](src/Models/BaseModel.php#L49): aquí está mi respuesta a la pregunta del enunciado de si va en `Database` o en `BaseModel`.
+4. [insert()](src/Models/BaseModel.php#L61)
+5. [update()](src/Models/BaseModel.php#L75)
 
 **Lo que tengo que entender:**
 
@@ -79,13 +79,13 @@ Si cambio [database.sql](database.sql) tengo que borrar la base de datos y crear
 
 **Dónde está:**
 
-1. [src/Models/User.php → findByEmail()](src/Models/User.php#L34) y [emailExists()](src/Models/User.php#L48)
+1. [src/Models/User.php → findByEmail()](src/Models/User.php#L34) y [emailExists()](src/Models/User.php#L56)
 2. [src/Controllers/AuthController.php](src/Controllers/AuthController.php):
-   - [register()](src/Controllers/AuthController.php#L25)
-   - [login()](src/Controllers/AuthController.php#L71)
-   - [logout()](src/Controllers/AuthController.php#L102)
+   - [register()](src/Controllers/AuthController.php#L31)
+   - [login()](src/Controllers/AuthController.php#L77)
+   - [logout()](src/Controllers/AuthController.php#L109)
 3. [src/Views/auth/register.php](src/Views/auth/register.php) y [login.php](src/Views/auth/login.php)
-4. [src/Views/partials/header.php](src/Views/partials/header.php#L25): el menú que cambia según si estoy logueado.
+4. [src/Views/partials/header.php](src/Views/partials/header.php#L33): el menú que cambia según si estoy logueado.
 5. [public/index.php](public/index.php#L21): dónde arranca la sesión.
 
 **Lo que tengo que entender:**
@@ -107,19 +107,19 @@ Si cambio [database.sql](database.sql) tengo que borrar la base de datos y crear
 
 1. [src/Models/Post.php → search()](src/Models/Post.php#L30): el buscador con `LIKE`.
 2. [src/Controllers/PostController.php](src/Controllers/PostController.php):
-   - [index()](src/Controllers/PostController.php#L23) y [show()](src/Controllers/PostController.php#L40)
-   - [create()](src/Controllers/PostController.php#L58) y [store()](src/Controllers/PostController.php#L68)
-   - [edit()](src/Controllers/PostController.php#L88) y [update()](src/Controllers/PostController.php#L103)
-   - [destroy()](src/Controllers/PostController.php#L123)
-   - [findOwnPost()](src/Controllers/PostController.php#L142): la comprobación de que el anuncio es mío.
-   - [readForm()](src/Controllers/PostController.php#L162): la validación de los campos.
-3. [src/Core/Controller.php → requireLogin()](src/Core/Controller.php#L67): obliga a estar logueado.
+   - [index()](src/Controllers/PostController.php#L23) y [show()](src/Controllers/PostController.php#L41)
+   - [create()](src/Controllers/PostController.php#L61) y [store()](src/Controllers/PostController.php#L71)
+   - [edit()](src/Controllers/PostController.php#L92) y [update()](src/Controllers/PostController.php#L107)
+   - [destroy()](src/Controllers/PostController.php#L128)
+   - [findOwnPost()](src/Controllers/PostController.php#L148): la comprobación de que el anuncio es mío.
+   - [readForm()](src/Controllers/PostController.php#L169): la validación de los campos.
+3. [src/Core/Controller.php → requireLogin()](src/Core/Controller.php#L68): obliga a estar logueado.
 4. Vistas: [index.php](src/Views/posts/index.php), [show.php](src/Views/posts/show.php), [create.php](src/Views/posts/create.php) y [edit.php](src/Views/posts/edit.php).
 
 **Lo que tengo que entender:**
 
 1. **Autenticación** (saber quién eres → `requireLogin()`) frente a **autorización** (si te dejo hacer algo → `findOwnPost()`).
-2. Por qué `findOwnPost()` está en `edit`, `update` y `destroy`, aunque en la vista ya escondo los botones con [$isOwner](src/Views/posts/show.php#L20): alguien podría mandar la petición a mano.
+2. Por qué `findOwnPost()` está en `edit`, `update` y `destroy`, aunque en la vista ya escondo los botones con [$isOwner](src/Views/posts/show.php#L21): alguien podría mandar la petición a mano.
 3. Por qué el `user_id` del anuncio sale de la sesión y no del formulario.
 4. Diferencia entre 403 (no tienes permiso) y 404 (no existe).
 5. Por qué buscar va por GET y borrar por POST.
@@ -137,7 +137,7 @@ Si cambio [database.sql](database.sql) tengo que borrar la base de datos y crear
 
 1. [src/Models/Comment.php → getByPost()](src/Models/Comment.php#L25)
 2. [src/Controllers/CommentController.php → store()](src/Controllers/CommentController.php#L23)
-3. [src/Views/posts/show.php](src/Views/posts/show.php#L48): la lista de comentarios y el formulario.
+3. [src/Views/posts/show.php](src/Views/posts/show.php#L51): la lista de comentarios y el formulario.
 
 **Lo que tengo que entender:**
 
@@ -159,7 +159,7 @@ Si cambio [database.sql](database.sql) tengo que borrar la base de datos y crear
 
 1. [public/index.php](public/index.php#L26): dónde se crea el token.
 2. [src/Core/Controller.php → checkCsrf()](src/Core/Controller.php#L36): dónde se comprueba.
-3. El campo oculto `csrf_token` en cada formulario, por ejemplo en [login.php](src/Views/auth/login.php#L10) o en [show.php](src/Views/posts/show.php#L67).
+3. El campo oculto `csrf_token` en cada formulario, por ejemplo en [login.php](src/Views/auth/login.php#L14) o en [show.php](src/Views/posts/show.php#L71).
 
 **Lo que tengo que entender:**
 
@@ -177,6 +177,30 @@ Si cambio [database.sql](database.sql) tengo que borrar la base de datos y crear
 **Qué pide:** cambiar URLs como `/posts/show?id=3` por `/posts/3`. Sube hasta +1 punto aparte.
 
 **Estado:** no lo he hecho. Si me sobra tiempo, se tocaría [src/Core/Router.php](src/Core/Router.php#L32) para trocear la URL con expresiones regulares.
+
+---
+
+## Extra. Diseño: CSS y un poco de JavaScript
+
+**Qué es:** no lo pide el enunciado. Es para que la web tenga buena pinta. No cambia nada de cómo funciona el PHP: solo toca las vistas (el HTML), el CSS y dos archivos de JavaScript.
+
+**Dónde está:**
+
+1. [public/css/style.css](public/css/style.css): todos los estilos. Los colores están arriba, en `:root`, sacados del logo de PHP.
+2. [header.php](src/Views/partials/header.php#L22): enlaza el CSS, las letras (Google Fonts) y el icono de la pestaña.
+3. [public/img/](public/img): el elefante de PHP (`elefante-php.webp`) y el icono de archivo PHP (`php-archivo.svg`).
+4. [Views/posts/index.php](src/Views/posts/index.php#L37): la portada con el elefante y un ojo encima hecho con HTML.
+5. [public/js/ojo-elefante.js](public/js/ojo-elefante.js): hace que la pupila del elefante mire al ratón.
+6. [footer.php](src/Views/partials/footer.php) y [public/js/carga.js](public/js/carga.js): la pantalla de carga con el elefante corriendo.
+
+**Lo que tengo que entender:**
+
+1. Por qué el CSS, el JS y las imágenes van en `public/`: es lo único que el navegador puede pedir directamente.
+2. Que el CSS solo cambia cómo se ve. Si lo quito, la web funciona igual, pero fea.
+3. Que el JavaScript se ejecuta en el **navegador**, no en el servidor como el PHP.
+4. Cuándo sale la pantalla de carga: si una página tarda más de 400 ms, y siempre durante 2 segundos al publicar un anuncio.
+
+**Cómo lo compruebo:** muevo el ratón por la cabecera del tablón y el ojo del elefante lo sigue. Publico un anuncio y sale el elefante corriendo antes de volver al listado.
 
 ---
 

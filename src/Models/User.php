@@ -33,12 +33,20 @@ class User extends BaseModel
      * ================================================================= */
     public function findByEmail(string $email, string $password): ?int
     {
+        // Busco al usuario por su email
         $user = $this->db->fetchOne('SELECT * FROM users WHERE email = :email', ['email' => $email]);
 
-        if ($user === null || !password_verify($password, $user['password'])) {
+        // Si no existe ese email, el login falla
+        if ($user === null) {
             return null;
         }
 
+        // Si la contraseña no coincide con el hash guardado, el login falla
+        if (!password_verify($password, $user['password'])) {
+            return null;
+        }
+
+        // Todo bien: devuelvo el id del usuario (int = número entero)
         return (int) $user['id'];
     }
 

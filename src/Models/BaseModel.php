@@ -16,12 +16,16 @@ use App\Core\Database;
 
 abstract class BaseModel
 {
-    /* Constructor con promoción de propiedades: crea $this->db y $this->table
-     * "protected" = las clases hijas (Post, User...) también pueden usarlas */
-    public function __construct(
-        protected Database $db,
-        protected string $table,
-    ) {
+    /* "protected" = las clases hijas (Post, User...) también pueden usarlas
+     * (igual que protected en Java) */
+    protected Database $db;      // La conexión a la base de datos
+    protected string $table;     // El nombre de la tabla: "posts", "users"...
+
+    // Constructor: guardo la conexión y el nombre de la tabla
+    public function __construct(Database $db, string $table)
+    {
+        $this->db = $db;
+        $this->table = $table;
     }
 
     /* Todos los registros de la tabla (o null si está vacía).

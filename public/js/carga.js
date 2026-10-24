@@ -9,48 +9,59 @@
  *  durante 2 segundos, y luego se envía el formulario.
  * ##################################################################### */
 
-const pantalla = document.getElementById('pantalla-carga');
-let temporizador = null;
+var pantalla = document.getElementById('pantalla-carga');
+var temporizador = null;
 
+// Enseña la pantalla de carga (le pone la clase "visible" del CSS)
+function mostrarPantalla() {
+    pantalla.classList.add('visible');
+}
+
+// Espera 400 ms y, si la página sigue sin cambiar, enseña la pantalla
 function empezarCarga() {
-    clearTimeout(temporizador);
-    temporizador = setTimeout(() => pantalla.classList.add('visible'), 400);
+    temporizador = setTimeout(mostrarPantalla, 400);
 }
 
-if (pantalla) {
-    // Enlaces de la propia web (no los que abren otra pestaña o van a #)
-    document.addEventListener('click', (evento) => {
-        const enlace = evento.target.closest('a');
-        if (enlace && enlace.origin === location.origin && !enlace.hash && enlace.target !== '_blank') {
-            empezarCarga();
-        }
-    });
+// Al pulsar un enlace de la propia web (los que empiezan por "/")
+function alPulsar(evento) {
+    var enlace = evento.target.closest('a');   // El enlace pulsado (o null)
 
-    // Formularios: solo si de verdad se envían (el confirm() de borrar puede cancelarlo)
-    document.addEventListener('submit', (evento) => {
-        if (evento.defaultPrevented) {
-            return;
-        }
-
-        const formulario = evento.target;
-
-        // Publicar anuncio nuevo (el formulario de create.php): paro el envío,
-        // enseño ya la pantalla y envío el formulario 2 segundos después.
-        // formulario.submit() NO vuelve a lanzar este evento, así que no se repite.
-        if (formulario.matches('form[action="/posts"][method="post"]')) {
-            evento.preventDefault();
-            pantalla.classList.add('visible');
-            setTimeout(() => formulario.submit(), 2000);
-            return;
-        }
-
+    if (enlace !== null && enlace.getAttribute('href').startsWith('/')) {
         empezarCarga();
-    });
-
-    // Al volver con el botón "Atrás" el navegador puede mostrar la página
-    // guardada en memoria: me aseguro de que la pantalla no siga puesta
-    window.addEventListener('pageshow', () => {
-        clearTimeout(temporizador);
-        pantalla.classList.remove('visible');
-    });
+    }
 }
+
+// Al enviar un formulario
+function alEnviar(evento) {
+    // Si se ha cancelado (por ejemplo, el confirm() de borrar), no hago nada
+    if (evento.defaultPrevented) {
+        return;
+    }
+
+    var formulario = evento.target;
+
+    /* Publicar anuncio nuevo (el formulario de create.php): paro el envío,
+     * enseño ya la pantalla y envío el formulario 2 segundos después.
+     * formulario.submit() NO vuelve a lanzar este evento, así que no se repite. */
+    if (formulario.getAttribute('action') === '/posts' && formulario.getAttribute('method') === 'post') {
+        evento.preventDefault();
+        mostrarPantalla();
+        setTimeout(function () {
+            formulario.submit();
+        }, 2000);
+        return;
+    }
+
+    empezarCarga();
+}
+
+/* Al volver con el botón "Atrás", el navegador puede enseñar la página
+ * guardada en memoria: me aseguro de que la pantalla no siga puesta */
+function alVolver() {
+    clearTimeout(temporizador);
+    pantalla.classList.remove('visible');
+}
+
+document.addEventListener('click', alPulsar);
+document.addEventListener('submit', alEnviar);
+window.addEventListener('pageshow', alVolver);

@@ -19,6 +19,12 @@ class AuthController extends Controller
         require __DIR__ . '/../Views/auth/register.php';
     }
 
+
+
+    // Aqui tenia una cosa de php demasiado avanzada asi que la he quitado porque no es buena idea.
+
+
+
     /* =================================================================
      *  POST /register -> crea el usuario
      * ================================================================= */
@@ -76,7 +82,8 @@ class AuthController extends Controller
         $password = $_POST['password'] ?? '';
 
         // 1 · findByEmail devuelve el id si los datos son correctos, o null
-        $userId = (new User($this->db))->findByEmail($email, $password);
+        $userModel = new User($this->db);
+        $userId = $userModel->findByEmail($email, $password);
 
         if ($userId === null) {
             // No digo si falla el email o la contraseña: así no doy pistas

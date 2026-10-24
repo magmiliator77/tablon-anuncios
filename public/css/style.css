@@ -463,9 +463,12 @@ footer {
  * Tapa toda la ventana. Empieza invisible (opacity 0) y sin recibir
  * clics; carga.js le pone la clase "visible" si la página tarda. */
 #pantalla-carga {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
+    position: fixed;          /* Pegada a la ventana, ocupando toda la pantalla */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;            /* Por encima de todo lo demás */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -488,7 +491,8 @@ footer {
 /* La "pista": una franja con el suelo dibujado abajo (línea discontinua) */
 #pantalla-carga .pista {
     position: relative;
-    width: min(700px, 90vw);
+    width: 90%;
+    max-width: 700px;
     height: 140px;
     overflow: hidden;
     border-bottom: 4px dashed var(--php-claro);
