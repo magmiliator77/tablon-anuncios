@@ -296,7 +296,11 @@ form br {
 }
 
 /* Botones "de juguete": con una sombra dura debajo que se hunde al pulsar */
-button {
+/* .boton sirve para que un ENLACE (<a>) se vea igual que un botón,
+ * como el de "Editar" en el detalle del anuncio */
+button,
+.boton {
+    display: inline-block;
     padding: 10px 22px;
     font-family: "Fredoka", sans-serif;
     font-size: 1rem;
@@ -306,15 +310,20 @@ button {
     border: 2px solid var(--tinta);
     border-radius: 12px;
     box-shadow: 0 4px 0 var(--tinta);
+    text-decoration: none;    /* Para el enlace: sin subrayado */
     cursor: pointer;
     transition: transform 0.1s, box-shadow 0.1s;
 }
 
-button:hover {
+/* Al pasar el ratón el botón se oscurece */
+button:hover,
+.boton:hover {
+    color: #fff;
     background: var(--php-oscuro);
 }
 
-button:active {
+button:active,
+.boton:active {
     transform: translateY(3px);
     box-shadow: 0 1px 0 var(--tinta);
 }
@@ -322,6 +331,19 @@ button:active {
 /* El botón de borrar va en rojo (es el del formulario /posts/delete) */
 form[action="/posts/delete"] button {
     background: var(--peligro);
+}
+
+form[action="/posts/delete"] button:hover {
+    background: #b0304a;      /* Rojo más oscuro */
+}
+
+/* El enlace de editar, como botón verde */
+.boton-editar {
+    background: var(--exito);
+}
+
+.boton-editar:hover {
+    background: #237a55;      /* Verde más oscuro */
 }
 
 /* ---------- Buscador: campo y botón en la misma línea ---------- */

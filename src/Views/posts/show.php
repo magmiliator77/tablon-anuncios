@@ -33,7 +33,8 @@ $isOwner = isset($_SESSION['user_id']) && (int) $_SESSION['user_id'] === (int) $
 
 <?php if ($isOwner): ?>
 <div class="acciones">
-    <a href="/posts/edit?id=<?= htmlspecialchars((string) $post['id']) ?>">✏️ Editar</a>
+    <!-- Es un enlace (lleva a otra página), pero con aspecto de botón (clase .boton del CSS) -->
+    <a href="/posts/edit?id=<?= htmlspecialchars((string) $post['id']) ?>" class="boton boton-editar">✏️ Editar</a>
 
     <!-- Borrar va por POST (nunca con un enlace GET) y con token CSRF -->
     <form action="/posts/delete" method="post" style="display:inline"
