@@ -13,6 +13,6 @@
         </div>
         <p>Cargando…</p>
     </div>
-    <script src="/js/carga.js?v=2"></script>
+    <script src="/js/carga.js?v=3"></script>
 </body>
 </html>
