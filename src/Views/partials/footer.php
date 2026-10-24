@@ -2,8 +2,7 @@
     </main>
 
     <footer>
-        <img src="/img/elefante-php.webp" alt="">
-        Hecho con PHP 8.3 · Práctica final 2.8
+        Hecho con <span class="etiqueta">PHP 8.3</span> · Práctica final 2.8
     </footer>
 </body>
 </html>

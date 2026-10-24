@@ -25,13 +25,13 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;700&display=swap">
     <!-- Los estilos de toda la web (public/css/style.css) -->
     <link rel="stylesheet" href="/css/style.css">
-    <!-- Icono de la pestaña: el elefante de PHP -->
-    <link rel="icon" href="/img/elefante-php.webp">
+    <!-- Icono de la pestaña: la hoja de "archivo PHP" -->
+    <link rel="icon" href="/img/php-archivo.svg" type="image/svg+xml">
 </head>
 <body>
     <!-- Menú: cambia según haya o no un usuario en la sesión -->
     <nav>
-        <a href="/posts" class="marca"><img src="/img/elefante-php.webp" alt="">Tablón PHP</a>
+        <a href="/posts" class="marca"><img src="/img/php-archivo.svg" alt="">Tablón PHP</a>
 
         <?php if (isset($_SESSION['user_id'])): ?>
             <a href="/posts/create">➕ Nuevo anuncio</a>

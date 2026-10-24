@@ -112,14 +112,21 @@ nav .marca:hover {
     background: none;
 }
 
+/* El icono de "archivo PHP" sobre una baldosa clara, para que destaque
+ * sobre el fondo oscuro del menú */
 nav .marca img {
-    height: 38px;
+    width: 42px;
+    height: 42px;
+    padding: 4px;
+    background: var(--php-suave);
+    border-radius: 10px;
+    box-shadow: 0 3px 0 var(--php);
     transition: transform 0.3s;
 }
 
-/* Al pasar el ratón, el elefante se inclina un poco */
+/* Al pasar el ratón, el icono se inclina un poco */
 nav .marca:hover img {
-    transform: rotate(-8deg) scale(1.08);
+    transform: rotate(-6deg);
 }
 
 nav .usuario {
@@ -177,17 +184,69 @@ hr {
     flex: 1;
 }
 
-.portada img {
-    width: 190px;
+/* ---------- El elefante animado (src/Views/partials/elefante.php) ----------
+ * El elefante está quieto; solo se mueven la cola, los ojos y el párpado.
+ * transform-box: fill-box hace que cada pieza gire o se escale
+ * respecto a sí misma y no respecto a todo el dibujo. */
+.elefante {
+    width: 210px;
     flex-shrink: 0;
-    filter: drop-shadow(0 10px 12px rgba(0, 0, 0, 0.25));
-    animation: flotar 4s ease-in-out infinite;
+    filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.25));
 }
 
-/* El elefante sube y baja despacio */
-@keyframes flotar {
-    0%, 100% { transform: translateY(0) rotate(-2deg); }
-    50%      { transform: translateY(-10px) rotate(2deg); }
+.elefante-texto {
+    font-family: "Arial Black", Arial, sans-serif;
+    font-size: 46px;
+    font-weight: 900;
+    font-style: italic;
+    fill: var(--tinta);
+    stroke: #fff;
+    stroke-width: 3px;
+    paint-order: stroke;       /* El borde blanco va por fuera de la letra */
+}
+
+/* Cola: gira desde su punta izquierda (donde se une al cuerpo) */
+.elefante .cola {
+    transform-box: fill-box;
+    transform-origin: left center;
+    animation: cola 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes cola {
+    from { transform: rotate(-18deg); }
+    to   { transform: rotate(14deg); }
+}
+
+/* Pupila: mira a la derecha, al frente, a la izquierda... */
+.elefante .pupila {
+    animation: mirar 7s ease-in-out infinite;
+}
+
+@keyframes mirar {
+    0%, 20%   { transform: translate(0, 0); }
+    30%, 45%  { transform: translate(3px, -1px); }
+    55%, 70%  { transform: translate(-5px, 1px); }
+    80%, 100% { transform: translate(0, 0); }
+}
+
+/* Párpado: casi siempre escondido (escala 0) y baja un instante */
+.elefante .parpado {
+    transform-box: fill-box;
+    transform-origin: center top;
+    transform: scaleY(0);
+    animation: parpadear 4.5s infinite;
+}
+
+@keyframes parpadear {
+    0%, 90%, 100% { transform: scaleY(0); }
+    94%           { transform: scaleY(1); }
+}
+
+/* Si el usuario tiene desactivadas las animaciones en su sistema, se respetan */
+@media (prefers-reduced-motion: reduce) {
+    .elefante * {
+        animation: none !important;
+    }
 }
 
 /* Dentro de la portada el buscador va sobre fondo lila */
@@ -249,6 +308,11 @@ textarea:focus {
     outline: none;
     background: #fff;
     border-color: var(--php);
+}
+
+/* Textarea suelto (el de comentar): separado del botón de debajo */
+form > textarea {
+    margin-bottom: 16px;
 }
 
 /* Los <br> de los formularios sobran: ya separa cada label */
@@ -379,11 +443,18 @@ tr:hover td {
     font-size: 0.85rem;
 }
 
-/* ---------- Login, registro y errores: elefante encima del título ---------- */
-.elefante-titulo {
-    display: block;
-    width: 110px;
-    margin: 0 auto 12px;
+/* ---------- Login, registro y errores: icono redondo encima del título ---------- */
+.icono-titulo {
+    display: grid;
+    place-items: center;
+    width: 76px;
+    height: 76px;
+    margin: 0 auto 14px;
+    font-size: 2.2rem;
+    background: var(--php-suave);
+    border: 2px solid var(--tinta);
+    border-radius: 50%;
+    box-shadow: 0 4px 0 var(--php);
 }
 
 .centrado {
@@ -395,10 +466,10 @@ tr:hover td {
     text-align: center;
 }
 
-/* En la página de error el elefante sale "mareado" (girado) */
-.elefante-error {
-    transform: rotate(-12deg);
-    filter: grayscale(0.4);
+/* En la página de error el icono va en rojo */
+.icono-error {
+    background: #fde8ec;
+    box-shadow: 0 4px 0 var(--peligro);
 }
 
 /* ---------- Pie ---------- */
@@ -412,9 +483,6 @@ footer {
     font-size: 0.9rem;
 }
 
-footer img {
-    height: 22px;
-}
 
 /* ---------- Móvil: menos márgenes y el elefante más pequeño ---------- */
 @media (max-width: 640px) {
@@ -434,8 +502,8 @@ footer img {
         padding: 24px 18px;
     }
 
-    .portada img {
-        width: 120px;
+    .elefante {
+        width: 150px;
     }
 
     table {

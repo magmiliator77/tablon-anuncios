@@ -32,7 +32,7 @@ require __DIR__ . '/../partials/header.php';
 </form>
 </div>
 
-<img src="/img/elefante-php.webp" alt="Elefante de PHP">
+<?php require __DIR__ . '/../partials/elefante.php'; ?>
 </section>
 
 <!-- fetchAll() devuelve null si no hay filas: entonces enseño un aviso -->

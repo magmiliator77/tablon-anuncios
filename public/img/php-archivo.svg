@@ -1,0 +1,23 @@
+<!-- Icono de "archivo PHP": una hoja con líneas de código y la etiqueta
+     ovalada de PHP. Es SVG (vectorial), así se ve nítido a cualquier tamaño.
+     Se usa en el menú y como icono de la pestaña del navegador. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+    <!-- Hoja con la esquina doblada -->
+    <path d="M13 3 h20 l9 9 v31 a2 2 0 0 1 -2 2 h-27 a2 2 0 0 1 -2 -2 v-38 a2 2 0 0 1 2 -2 z"
+          fill="#f4f5fc" stroke="#6e76ad" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M33 3 v9 h9" fill="#d6daf0" stroke="#6e76ad" stroke-width="2" stroke-linejoin="round"/>
+
+    <!-- Líneas de "código" -->
+    <g stroke="#a3abd6" stroke-width="2.4" stroke-linecap="round">
+        <path d="M17 12 h11"/>
+        <path d="M17 18 h20"/>
+        <path d="M27 24 h10"/>
+        <path d="M30 31 h7"/>
+        <path d="M17 39 h20"/>
+    </g>
+
+    <!-- Etiqueta ovalada "php" -->
+    <ellipse cx="17" cy="29" rx="15" ry="8.5" fill="#777bb3" stroke="#2e2a4f" stroke-width="2"/>
+    <text x="17" y="32.6" text-anchor="middle" fill="#fff"
+          font-family="Arial Black, Arial, sans-serif" font-weight="900" font-style="italic" font-size="10.5">php</text>
+</svg>

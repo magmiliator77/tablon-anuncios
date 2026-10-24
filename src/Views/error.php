@@ -10,7 +10,7 @@ require __DIR__ . '/partials/header.php';
 ?>
 
 <div class="centrado">
-<img src="/img/elefante-php.webp" alt="" class="elefante-titulo elefante-error">
+<div class="icono-titulo icono-error">⚠️</div>
 <h1>Error <?= htmlspecialchars((string) $code) ?></h1>
 <p><?= htmlspecialchars($message) ?></p>
 <p><a href="/posts">← Volver al tablón</a></p>

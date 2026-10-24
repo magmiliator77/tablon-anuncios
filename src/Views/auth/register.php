@@ -6,7 +6,7 @@ require __DIR__ . '/../partials/header.php';
 ?>
 
 <div class="centrado">
-<img src="/img/elefante-php.webp" alt="" class="elefante-titulo">
+<div class="icono-titulo">👋</div>
 <h1>Crear cuenta</h1>
 
 <form action="/register" method="post">
