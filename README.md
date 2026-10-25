@@ -1,4 +1,9 @@
-# Tablón de anuncios (Práctica final 2.8)
+# Tablón de anuncios (Práctica final 2.8)<img width="47" height="29" alt="elephpant-running-78x48 (1) (1) (1)" src="https://github.com/user-attachments/assets/d55c0199-141c-425f-a7ce-50482487befd" />
+
+
+
+
+
 
 Aplicación MVC en PHP sin framework: usuarios, anuncios con categoría, comentarios, buscador, permisos por autor y protección CSRF.
 
